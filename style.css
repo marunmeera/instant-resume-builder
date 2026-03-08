@@ -48,3 +48,40 @@ background:black;
 color:white;
 margin-left:10px;
 }
+
+/* Resume Template */
+
+.resume-wrapper{
+background:white;
+padding:40px;
+margin-top:20px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+border-radius:6px;
+}
+
+.resume-wrapper h1{
+font-size:28px;
+margin-bottom:5px;
+color:black;
+}
+
+.resume-wrapper h2{
+font-size:18px;
+margin-top:25px;
+border-bottom:2px solid #0033aa;
+padding-bottom:5px;
+color:#0033aa;
+}
+
+.resume-wrapper p{
+margin:6px 0;
+line-height:1.5;
+}
+
+.resume-wrapper ul{
+padding-left:18px;
+}
+
+.resume-wrapper li{
+margin-bottom:6px;
+}
