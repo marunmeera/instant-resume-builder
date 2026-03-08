@@ -3,11 +3,12 @@
 
 <head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Instant Resume Builder</title>
 
 <link rel="stylesheet" href="style.css">
-
-<script src="resume-generator.js"></script>
 
 </head>
 
@@ -24,6 +25,8 @@
 
 <div class="container">
 
+<!-- Resume Generator -->
+
 <div class="section">
 
 <div class="card">
@@ -31,22 +34,22 @@
 <h2>Generate Resume</h2>
 
 <label>Full Name</label>
-<input id="name">
+<input id="name" placeholder="Enter your full name">
 
 <label>Mobile</label>
-<input id="mobile">
+<input id="mobile" placeholder="Enter mobile number">
 
 <label>Email</label>
-<input id="email">
+<input id="email" placeholder="Enter email address">
 
 <h3>Certifications</h3>
 
-<textarea id="certifications"></textarea>
+<textarea id="certifications" placeholder="List your certifications"></textarea>
 
 <br><br>
 
 <button class="btn19" onclick="payPDF()">
-PDF Resume ₹19
+Generate PDF Resume ₹19
 </button>
 
 <button class="btn29" onclick="payEditable()">
@@ -58,19 +61,30 @@ Editable Resume ₹29
 </div>
 
 
+<!-- Resume Score -->
+
 <div class="section">
 
 <div class="card">
 
 <h2>Resume Score</h2>
 
-<textarea placeholder="Paste resume here"></textarea>
+<textarea placeholder="Paste your resume here to analyze"></textarea>
+
+<p style="font-size:13px;color:#555">
+AI scoring feature coming soon
+</p>
 
 </div>
 
 </div>
 
 </div>
+
+
+<!-- Load script at bottom so DOM exists -->
+
+<script src="resume-generator.js"></script>
 
 </body>
 
