@@ -1,3 +1,9 @@
+const TEST_MODE = true
+
+if(TEST_MODE){
+console.warn("TEST MODE ACTIVE - Razorpay disabled")
+}
+
 function addAcademic(){
 
 let div=document.createElement("div")
@@ -51,6 +57,8 @@ projects:document.getElementById("projects").value
 
 localStorage.setItem("resumeForm",JSON.stringify(data))
 
+localStorage.setItem("paymentAllowed","true")
+
 }
 
 
@@ -58,7 +66,15 @@ function payPDF(){
 
 saveFormData()
 
+if(TEST_MODE){
+
+window.location.href="success.html"
+
+}else{
+
 window.location.href="https://rzp.io/rzp/BD83t1T9"
+
+}
 
 }
 
@@ -67,6 +83,14 @@ function payEditable(){
 
 saveFormData()
 
+if(TEST_MODE){
+
+window.location.href="success.html"
+
+}else{
+
 window.location.href="https://rzp.io/rzp/h2uXLa7"
+
+}
 
 }
