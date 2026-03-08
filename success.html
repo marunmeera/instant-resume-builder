@@ -1,49 +1,39 @@
-function addAcademic(){
+<!DOCTYPE html>
+<html>
 
-let div=document.createElement("div")
+<head>
 
-div.innerHTML=`
-<input placeholder="Qualification">
-<input placeholder="Institution">
-<input placeholder="Grade">
-`
+<title>Resume Ready</title>
 
-document.getElementById("academics").appendChild(div)
+<link rel="stylesheet" href="style.css">
 
-}
+</head>
 
-function addExperience(){
+<body>
 
-let div=document.createElement("div")
+<header>
 
-div.innerHTML=`
-<input placeholder="Company">
-<input placeholder="Role">
-<textarea placeholder="Description"></textarea>
-`
+<h1>Your Resume Request Received</h1>
 
-document.getElementById("experience").appendChild(div)
+</header>
 
-}
+<div style="max-width:800px;margin:auto">
 
-function startPayment(amount){
+<pre id="resumeOutput"></pre>
 
-localStorage.setItem("amount",amount)
+</div>
 
-window.location="payment.html"
+<script>
 
-}
+let data = JSON.parse(localStorage.getItem("resumeForm"))
 
-function startScore(amount){
+document.getElementById("resumeOutput").innerText =
 
-alert("Resume scoring payment "+amount)
+"Thank you "+data.name+
+"\n\nYour resume is being prepared and will be sent to "+data.email
 
-}
+</script>
 
-function generateResume(){
+</body>
 
-let name=localStorage.getItem("name")
-
-document.getElementById("resumeOutput").innerText="Resume generated successfully."
-
-}
+</html>
