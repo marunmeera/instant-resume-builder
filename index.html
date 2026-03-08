@@ -22,23 +22,25 @@
 
 </header>
 
-<!-- Scrolling Banner -->
 
 <div class="announcement">
 
-<marquee behavior="scroll" direction="left">
+<strong>Upcoming Features:</strong>
 
-Next Updates: Generate Resume from Handwritten Inputs (+₹10) | 
-Resume Score & Recommended Improvements starting from ₹19
+<span class="highlight1">
+Handwritten Resume Generation (+₹10)
+</span>
 
-</marquee>
+|
+
+<span class="highlight2">
+Upload Resume → AI Score & Improvement Suggestions (From ₹19)
+</span>
 
 </div>
 
 
 <div class="container">
-
-<div class="section full">
 
 <div class="card">
 
@@ -53,49 +55,23 @@ Resume Score & Recommended Improvements starting from ₹19
 <label>Email</label>
 <input id="email" placeholder="Enter email address">
 
-<h3>Academics</h3>
+<label>LinkedIn (Optional)</label>
+<input id="linkedin">
 
-<div id="academics">
+<label>Location (Optional)</label>
+<input id="location">
 
-<input placeholder="Qualification (SSLC / HSC / Degree)">
-<input placeholder="Institution Name">
-<input placeholder="Grade / Percentage">
-
-</div>
-
-<button class="add-btn" onclick="addAcademic()">
-+ Add Academic
-</button>
-
-
-<h3>Certifications</h3>
-
-<textarea id="certifications" placeholder="List certifications"></textarea>
-
-
-<h3>Work Experience</h3>
-
-<div id="experience">
-
-<input placeholder="Company Name">
-<input placeholder="Role">
-<textarea placeholder="Description"></textarea>
-
-</div>
-
-<button class="add-btn" onclick="addExperience()">
-+ Add Experience
-</button>
-
+<h3>Professional Summary (Optional)</h3>
+<textarea id="summary"></textarea>
 
 <h3>Skills</h3>
+<textarea id="skills"></textarea>
 
-<textarea id="skills" placeholder="List your skills"></textarea>
-
+<h3>Certifications</h3>
+<textarea id="certifications"></textarea>
 
 <h3>Projects</h3>
-
-<textarea id="projects" placeholder="Describe key projects"></textarea>
+<textarea id="projects"></textarea>
 
 <br><br>
 
@@ -106,8 +82,6 @@ Generate PDF Resume ₹19
 <button class="btn29" onclick="payEditable()">
 Editable Resume ₹29
 </button>
-
-</div>
 
 </div>
 
