@@ -1,0 +1,49 @@
+function addAcademic(){
+
+let div=document.createElement("div")
+
+div.innerHTML=`
+<input placeholder="Qualification">
+<input placeholder="Institution">
+<input placeholder="Grade">
+`
+
+document.getElementById("academics").appendChild(div)
+
+}
+
+function addExperience(){
+
+let div=document.createElement("div")
+
+div.innerHTML=`
+<input placeholder="Company">
+<input placeholder="Role">
+<textarea placeholder="Description"></textarea>
+`
+
+document.getElementById("experience").appendChild(div)
+
+}
+
+function startPayment(amount){
+
+localStorage.setItem("amount",amount)
+
+window.location="payment.html"
+
+}
+
+function startScore(amount){
+
+alert("Resume scoring payment "+amount)
+
+}
+
+function generateResume(){
+
+let name=localStorage.getItem("name")
+
+document.getElementById("resumeOutput").innerText="Resume generated successfully."
+
+}

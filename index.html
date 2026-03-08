@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Instant Resume Builder</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="resume-generator.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Instant Resume Builder</h1>
+
+<p>Create professional resume in minutes</p>
+
+</header>
+
+<div class="container">
+
+<!-- Resume Builder -->
+
+<div class="section">
+
+<div class="card">
+
+<h2>Generate Resume</h2>
+
+<label>Full Name</label>
+<input id="name">
+
+<label>Mobile</label>
+<input id="mobile">
+
+<label>Email</label>
+<input id="email">
+
+<h3>Academics</h3>
+
+<div id="academics">
+
+<input placeholder="Qualification">
+<input placeholder="Institution">
+<input placeholder="Grade">
+
+</div>
+
+<button class="add-btn" onclick="addAcademic()">
+Add Academic
+</button>
+
+<h3>Certifications</h3>
+
+<textarea id="certifications"></textarea>
+
+<h3>Work Experience</h3>
+
+<div id="experience">
+
+<input placeholder="Company">
+<input placeholder="Role">
+<textarea placeholder="Description"></textarea>
+
+</div>
+
+<button class="add-btn" onclick="addExperience()">
+Add Experience
+</button>
+
+<br><br>
+
+<button class="btn19" onclick="startPayment(19)">
+PDF Resume ₹19
+</button>
+
+<button class="btn29" onclick="startPayment(29)">
+Editable Resume ₹29
+</button>
+
+</div>
+
+</div>
+
+<!-- Resume Score -->
+
+<div class="section">
+
+<div class="card">
+
+<h2>Resume Score Generator</h2>
+
+<textarea id="resumeText" placeholder="Paste resume here"></textarea>
+
+<br>
+
+<button class="btn19" onclick="startScore(19)">
+5 Improvements ₹19
+</button>
+
+<button class="btn29" onclick="startScore(29)">
+10 Improvements ₹29
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
