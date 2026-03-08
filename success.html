@@ -14,18 +14,22 @@
 <body>
 
 <header>
+
 <h1>Your Resume</h1>
+
 </header>
 
-<div style="max-width:900px;margin:auto">
 
 <div class="resume-wrapper">
 
 <div id="resumeOutput">
+
 Generating resume...
+
 </div>
 
 </div>
+
 
 <br>
 
@@ -37,29 +41,30 @@ Download PDF
 Download Word
 </button>
 
-</div>
 
 <script>
 
 async function generateResume(){
 
-let data = JSON.parse(localStorage.getItem("resumeForm"))
+let data=JSON.parse(localStorage.getItem("resumeForm"))
 
-let response = await fetch("https://resume-ai-api-tg2p.onrender.com/generate-resume",{
+let response=await fetch("https://resume-ai-api-tg2p.onrender.com/generate-resume",{
 
 method:"POST",
 
 headers:{
+
 "Content-Type":"application/json"
+
 },
 
 body:JSON.stringify(data)
 
 })
 
-let result = await response.json()
+let result=await response.json()
 
-document.getElementById("resumeOutput").innerHTML = result.resume
+document.getElementById("resumeOutput").innerHTML=result.resume
 
 }
 
@@ -67,7 +72,7 @@ generateResume()
 
 function downloadPDF(){
 
-let element = document.getElementById("resumeOutput")
+let element=document.getElementById("resumeOutput")
 
 html2pdf().from(element).save("resume.pdf")
 
@@ -75,17 +80,19 @@ html2pdf().from(element).save("resume.pdf")
 
 function downloadWord(){
 
-let content = document.getElementById("resumeOutput").innerHTML
+let content=document.getElementById("resumeOutput").innerHTML
 
-let blob = new Blob(['<html><body>'+content+'</body></html>'],{
+let blob=new Blob(['<html><body>'+content+'</body></html>'],{
+
 type:"application/msword"
+
 })
 
-let link = document.createElement("a")
+let link=document.createElement("a")
 
-link.href = URL.createObjectURL(blob)
+link.href=URL.createObjectURL(blob)
 
-link.download = "resume.doc"
+link.download="resume.doc"
 
 link.click()
 
