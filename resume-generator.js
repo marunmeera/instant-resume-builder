@@ -1,31 +1,3 @@
-function addAcademic(){
-
-let div=document.createElement("div")
-
-div.innerHTML=`
-<input placeholder="Qualification">
-<input placeholder="Institution">
-<input placeholder="Grade">
-`
-
-document.getElementById("academics").appendChild(div)
-
-}
-
-function addExperience(){
-
-let div=document.createElement("div")
-
-div.innerHTML=`
-<input placeholder="Company">
-<input placeholder="Role">
-<textarea placeholder="Description"></textarea>
-`
-
-document.getElementById("experience").appendChild(div)
-
-}
-
 function payPDF(){
 
 saveFormData()
@@ -44,7 +16,7 @@ window.location.href="https://rzp.io/rzp/h2uXLa7"
 
 function saveFormData(){
 
-let formData={
+let formData = {
 
 name:document.getElementById("name").value,
 mobile:document.getElementById("mobile").value,
