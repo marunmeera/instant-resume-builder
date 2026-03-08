@@ -23,19 +23,23 @@
 </header>
 
 
+<!-- Announcement Banner -->
+
 <div class="announcement">
+
+<div class="ticker">
 
 <strong>Upcoming Features:</strong>
 
-<span class="highlight1">
-Handwritten Resume Generation (+₹10)
-</span>
+&nbsp;&nbsp;
 
-|
+Generate Resume from Handwritten Inputs (+₹10)
 
-<span class="highlight2">
-Upload Resume → AI Score & Improvement Suggestions (From ₹19)
-</span>
+&nbsp;&nbsp; | &nbsp;&nbsp;
+
+Upload Resume → AI Resume Score & Improvement Suggestions (Starting ₹19)
+
+</div>
 
 </div>
 
@@ -55,28 +59,56 @@ Upload Resume → AI Score & Improvement Suggestions (From ₹19)
 <label>Email</label>
 <input id="email" placeholder="Enter email address">
 
-<label>LinkedIn (Optional)</label>
-<input id="linkedin">
 
-<label>Location (Optional)</label>
-<input id="location">
+<h3>Academics</h3>
 
-<h3>Professional Summary (Optional)</h3>
-<textarea id="summary"></textarea>
+<div id="academics">
 
-<h3>Skills</h3>
-<textarea id="skills"></textarea>
+<input placeholder="Qualification (SSLC / HSC / Degree)">
+<input placeholder="Institution Name">
+<input placeholder="Grade / Percentage">
+
+</div>
+
+<button class="add-btn" onclick="addAcademic()">
++ Add Academic
+</button>
+
 
 <h3>Certifications</h3>
-<textarea id="certifications"></textarea>
+
+<textarea id="certifications" placeholder="List certifications"></textarea>
+
+
+<h3>Work Experience</h3>
+
+<div id="experience">
+
+<input placeholder="Company Name">
+<input placeholder="Role">
+<textarea placeholder="Description"></textarea>
+
+</div>
+
+<button class="add-btn" onclick="addExperience()">
++ Add Experience
+</button>
+
+
+<h3>Skills</h3>
+
+<textarea id="skills" placeholder="List your skills"></textarea>
+
 
 <h3>Projects</h3>
-<textarea id="projects"></textarea>
+
+<textarea id="projects" placeholder="Describe key projects"></textarea>
+
 
 <br><br>
 
 <button class="btn19" onclick="payPDF()">
-Generate PDF Resume ₹19
+Generate Resume PDF ₹19
 </button>
 
 <button class="btn29" onclick="payEditable()">
@@ -86,6 +118,7 @@ Editable Resume ₹29
 </div>
 
 </div>
+
 
 <script src="resume-generator.js"></script>
 
