@@ -7,23 +7,31 @@
 
 <link rel="stylesheet" href="style.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 </head>
 
 <body>
 
 <header>
-
 <h1>Your Resume</h1>
-
 </header>
 
 <div style="max-width:900px;margin:auto">
 
 <div id="resumeOutput">
-
 Generating resume...
-
 </div>
+
+<br>
+
+<button onclick="downloadPDF()" class="btn19">
+Download PDF
+</button>
+
+<button onclick="downloadWord()" class="btn29">
+Download Word
+</button>
 
 </div>
 
@@ -52,6 +60,32 @@ document.getElementById("resumeOutput").innerHTML = result.resume
 }
 
 generateResume()
+
+function downloadPDF(){
+
+let element = document.getElementById("resumeOutput")
+
+html2pdf().from(element).save("resume.pdf")
+
+}
+
+function downloadWord(){
+
+let content = document.getElementById("resumeOutput").innerHTML
+
+let blob = new Blob(['<html><body>'+content+'</body></html>'],{
+type:"application/msword"
+})
+
+let link = document.createElement("a")
+
+link.href = URL.createObjectURL(blob)
+
+link.download = "resume.doc"
+
+link.click()
+
+}
 
 </script>
 
