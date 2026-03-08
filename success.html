@@ -70,6 +70,7 @@ document.getElementById("resumeOutput").innerHTML=result.resume
 
 generateResume()
 
+
 function downloadPDF(){
 
 let element=document.getElementById("resumeOutput")
@@ -77,6 +78,7 @@ let element=document.getElementById("resumeOutput")
 html2pdf().from(element).save("resume.pdf")
 
 }
+
 
 function downloadWord(){
 
