@@ -42,9 +42,59 @@
 <label>Email</label>
 <input id="email" placeholder="Enter email address">
 
+<!-- Academics -->
+
+<h3>Academics</h3>
+
+<div id="academics">
+
+<input placeholder="Qualification (SSLC / HSC / Degree)">
+<input placeholder="Institution Name">
+<input placeholder="Grade / Percentage">
+
+</div>
+
+<button class="add-btn" onclick="addAcademic()">
++ Add Academic
+</button>
+
+
+<!-- Certifications -->
+
 <h3>Certifications</h3>
 
-<textarea id="certifications" placeholder="List your certifications"></textarea>
+<textarea id="certifications" placeholder="List certifications"></textarea>
+
+
+<!-- Work Experience -->
+
+<h3>Work Experience</h3>
+
+<div id="experience">
+
+<input placeholder="Company Name">
+<input placeholder="Role">
+<textarea placeholder="Description"></textarea>
+
+</div>
+
+<button class="add-btn" onclick="addExperience()">
++ Add Experience
+</button>
+
+
+<!-- Skills -->
+
+<h3>Skills</h3>
+
+<textarea id="skills" placeholder="List your skills"></textarea>
+
+
+<!-- Projects -->
+
+<h3>Projects</h3>
+
+<textarea id="projects" placeholder="Describe key projects"></textarea>
 
 <br><br>
 
@@ -69,9 +119,9 @@ Editable Resume ₹29
 
 <h2>Resume Score</h2>
 
-<textarea placeholder="Paste your resume here to analyze"></textarea>
+<textarea id="resumeText" placeholder="Paste your resume here to analyze"></textarea>
 
-<p style="font-size:13px;color:#555">
+<p style="font-size:13px;color:#666">
 AI scoring feature coming soon
 </p>
 
@@ -81,8 +131,6 @@ AI scoring feature coming soon
 
 </div>
 
-
-<!-- Load script at bottom so DOM exists -->
 
 <script src="resume-generator.js"></script>
 
