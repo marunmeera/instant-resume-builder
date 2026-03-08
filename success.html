@@ -44,6 +44,14 @@ Download Word
 
 <script>
 
+if(!localStorage.getItem("paymentAllowed")){
+
+document.body.innerHTML="Unauthorized Access"
+
+throw new Error("Blocked")
+
+}
+
 async function generateResume(){
 
 let data=JSON.parse(localStorage.getItem("resumeForm"))
