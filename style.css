@@ -1,5 +1,5 @@
 body{
-font-family:Arial, sans-serif;
+font-family:Arial;
 margin:0;
 background:white;
 color:black;
@@ -17,14 +17,13 @@ color:#0033aa;
 .container{
 display:flex;
 flex-wrap:wrap;
-width:100%;
 max-width:1200px;
 margin:auto;
 }
 
 .section{
 width:50%;
-padding:30px;
+padding:20px;
 box-sizing:border-box;
 }
 
@@ -38,7 +37,7 @@ h2{
 color:#0033aa;
 }
 
-input, textarea{
+input,textarea{
 width:100%;
 padding:10px;
 margin-top:5px;
