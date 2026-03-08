@@ -2,35 +2,63 @@
 <html>
 
 <head>
-
-<title>Resume Ready</title>
-
+<title>Your Resume</title>
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
 <header>
-
-<h1>Your Resume Request Received</h1>
-
+<h1>Your Resume is Being Generated</h1>
 </header>
 
-<div style="max-width:800px;margin:auto">
+<div style="max-width:900px;margin:auto">
 
-<pre id="resumeOutput"></pre>
+<pre id="resumeOutput">
+Generating resume...
+</pre>
 
 </div>
 
 <script>
 
+async function generateResume(){
+
 let data = JSON.parse(localStorage.getItem("resumeForm"))
 
-document.getElementById("resumeOutput").innerText =
+if(!data){
+document.getElementById("resumeOutput").innerText="No form data found."
+return
+}
 
-"Thank you "+data.name+
-"\n\nYour resume is being prepared and will be sent to "+data.email
+try{
+
+let response = await fetch("https://YOUR_API_URL/generate-resume",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(data)
+
+})
+
+let result = await response.json()
+
+document.getElementById("resumeOutput").innerText = result.resume
+
+}catch(err){
+
+document.getElementById("resumeOutput").innerText =
+"Error generating resume. Please try again."
+
+}
+
+}
+
+generateResume()
 
 </script>
 
