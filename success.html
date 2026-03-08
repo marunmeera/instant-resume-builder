@@ -2,21 +2,28 @@
 <html>
 
 <head>
+
 <title>Your Resume</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <header>
-<h1>Your Resume is Being Generated</h1>
+
+<h1>Your Resume</h1>
+
 </header>
 
 <div style="max-width:900px;margin:auto">
 
-<pre id="resumeOutput">
+<div id="resumeOutput">
+
 Generating resume...
-</pre>
+
+</div>
 
 </div>
 
@@ -26,14 +33,7 @@ async function generateResume(){
 
 let data = JSON.parse(localStorage.getItem("resumeForm"))
 
-if(!data){
-document.getElementById("resumeOutput").innerText="No form data found."
-return
-}
-
-try{
-
-let response = await fetch("https://YOUR_API_URL/generate-resume",{
+let response = await fetch("https://resume-ai-api-tg2p.onrender.com/generate-resume",{
 
 method:"POST",
 
@@ -47,14 +47,7 @@ body:JSON.stringify(data)
 
 let result = await response.json()
 
-document.getElementById("resumeOutput").innerText = result.resume
-
-}catch(err){
-
-document.getElementById("resumeOutput").innerText =
-"Error generating resume. Please try again."
-
-}
+document.getElementById("resumeOutput").innerHTML = result.resume
 
 }
 
