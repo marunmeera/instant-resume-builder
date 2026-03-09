@@ -1,7 +1,7 @@
-const TEST_MODE = true
+const TEST_MODE=true
 
-if(TEST_MODE){
-console.warn("TEST MODE ACTIVE - Razorpay disabled")
+function cleanText(text){
+return text.replace(/\n/g,"<br>")
 }
 
 function addAcademic(){
@@ -11,14 +11,13 @@ let div=document.createElement("div")
 div.innerHTML=`
 
 <hr>
-
-<input placeholder="Qualification (SSLC / HSC / Degree)">
-<input placeholder="Institution Name">
-<input placeholder="Grade / Percentage">
+<input placeholder="Qualification">
+<input placeholder="Institution">
+<input placeholder="Grade">
 
 `
 
-document.getElementById("academics").appendChild(div)
+document.getElementById("academics").prepend(div)
 
 }
 
@@ -30,14 +29,13 @@ let div=document.createElement("div")
 div.innerHTML=`
 
 <hr>
-
-<input placeholder="Company Name">
+<input placeholder="Company">
 <input placeholder="Role">
 <textarea placeholder="Description"></textarea>
 
 `
 
-document.getElementById("experience").appendChild(div)
+document.getElementById("experience").prepend(div)
 
 }
 
@@ -49,14 +47,13 @@ let data={
 name:document.getElementById("name").value,
 mobile:document.getElementById("mobile").value,
 email:document.getElementById("email").value,
-certifications:document.getElementById("certifications").value,
-skills:document.getElementById("skills").value,
-projects:document.getElementById("projects").value
+certifications:cleanText(document.getElementById("certifications").value),
+skills:cleanText(document.getElementById("skills").value),
+projects:cleanText(document.getElementById("projects").value)
 
 }
 
 localStorage.setItem("resumeForm",JSON.stringify(data))
-
 localStorage.setItem("paymentAllowed","true")
 
 }
