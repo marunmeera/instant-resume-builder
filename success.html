@@ -4,7 +4,6 @@
 <head>
 
 <title>Your Resume</title>
-
 <link rel="stylesheet" href="style.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -14,32 +13,43 @@
 <body>
 
 <header>
-
 <h1>Your Resume</h1>
-
 </header>
 
 
-<div class="resume-wrapper">
+<div id="statusMessage" style="text-align:center">
 
-<div id="resumeOutput">
+Generating Resume
 
-Generating resume...
+<span class="loading-dots">
+<span>●</span>
+<span>●</span>
+<span>●</span>
+</span>
+
+<p>Please wait while AI prepares your resume.</p>
+
+<p>⚠ Do not click download until preview appears.</p>
 
 </div>
 
-</div>
+
+<div class="resume-wrapper" id="resumeOutput" style="display:none"></div>
 
 
 <br>
 
-<button onclick="downloadPDF()" class="btn19">
+<div style="text-align:center">
+
+<button id="pdfBtn" onclick="downloadPDF()" class="btn19" disabled>
 Download PDF
 </button>
 
-<button onclick="downloadWord()" class="btn29">
+<button id="docBtn" onclick="downloadWord()" class="btn29" disabled>
 Download Word
 </button>
+
+</div>
 
 
 <script>
@@ -47,10 +57,10 @@ Download Word
 if(!localStorage.getItem("paymentAllowed")){
 
 document.body.innerHTML="Unauthorized Access"
-
 throw new Error("Blocked")
 
 }
+
 
 async function generateResume(){
 
@@ -59,13 +69,7 @@ let data=JSON.parse(localStorage.getItem("resumeForm"))
 let response=await fetch("https://resume-ai-api-tg2p.onrender.com/generate-resume",{
 
 method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
+headers:{"Content-Type":"application/json"},
 body:JSON.stringify(data)
 
 })
@@ -74,6 +78,13 @@ let result=await response.json()
 
 document.getElementById("resumeOutput").innerHTML=result.resume
 
+document.getElementById("resumeOutput").style.display="block"
+
+document.getElementById("statusMessage").style.display="none"
+
+document.getElementById("pdfBtn").disabled=false
+document.getElementById("docBtn").disabled=false
+
 }
 
 generateResume()
@@ -81,7 +92,7 @@ generateResume()
 
 function downloadPDF(){
 
-let element=document.getElementById("resumeOutput")
+let element=document.querySelector(".resume-wrapper")
 
 html2pdf().from(element).save("resume.pdf")
 
@@ -92,11 +103,7 @@ function downloadWord(){
 
 let content=document.getElementById("resumeOutput").innerHTML
 
-let blob=new Blob(['<html><body>'+content+'</body></html>'],{
-
-type:"application/msword"
-
-})
+let blob=new Blob(['<html><body>'+content+'</body></html>'],{type:"application/msword"})
 
 let link=document.createElement("a")
 
