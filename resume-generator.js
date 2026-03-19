@@ -1,84 +1,116 @@
 const TEST_MODE = true
 
 
-function addAcademic(){
+function addEducation(){
 
-let table = document.getElementById("academicsTable")
+let div = document.createElement("div")
 
-let row = table.insertRow(1)
+div.className="edu-block"
 
-row.innerHTML = `
-<td><input></td>
-<td><input></td>
-<td><input></td>
+div.innerHTML = `
+<hr>
+<input placeholder="Qualification">
+<input placeholder="Institution">
+<input placeholder="Grade">
 `
+
+document.getElementById("education").prepend(div)
 
 }
 
 
 function addExperience(){
 
-let table = document.getElementById("experienceTable")
+let div = document.createElement("div")
 
-let row = table.insertRow(1)
+div.className="exp-block"
 
-row.innerHTML = `
-<td><input></td>
-<td><input></td>
-<td><input></td>
+div.innerHTML = `
+<hr>
+<input placeholder="Company">
+<input placeholder="Role">
+<textarea placeholder="Description"></textarea>
 `
+
+document.getElementById("experience").prepend(div)
 
 }
 
 
-function getTableData(tableId){
+function getEducation(){
 
-let rows = document.querySelectorAll("#"+tableId+" tr")
+let blocks = document.querySelectorAll(".edu-block")
 
-let result = []
+let data=[]
 
-rows.forEach((row,i)=>{
+blocks.forEach(b=>{
 
-if(i===0) return
+let inputs=b.querySelectorAll("input")
 
-let inputs = row.querySelectorAll("input")
+let values=[]
 
-let values = []
-
-inputs.forEach(input=>{
-if(input.value.trim() !== ""){
-values.push(input.value)
+inputs.forEach(i=>{
+if(i.value.trim()!==""){
+values.push(i.value)
 }
 })
 
 if(values.length>0){
-result.push(values.join(" - "))
+data.push(values.join(" - "))
 }
 
 })
 
-return result.join("\n")
+return data.join("\n")
+}
+
+
+function getExperience(){
+
+let blocks=document.querySelectorAll(".exp-block")
+
+let data=[]
+
+blocks.forEach(b=>{
+
+let inputs=b.querySelectorAll("input,textarea")
+
+let values=[]
+
+inputs.forEach(i=>{
+if(i.value.trim()!==""){
+values.push(i.value)
+}
+})
+
+if(values.length>0){
+data.push(values.join(" - "))
+}
+
+})
+
+return data.join("\n")
 }
 
 
 function saveFormData(){
 
-let data = {
+let data={
 
-name:document.getElementById("name").value,
-mobile:document.getElementById("mobile").value,
-email:document.getElementById("email").value,
+name:name.value,
+mobile:mobile.value,
+email:email.value,
 
-education:getTableData("academicsTable"),
-experience:getTableData("experienceTable"),
+education:getEducation(),
+experience:getExperience(),
 
-skills:document.getElementById("skills").value,
-certifications:document.getElementById("certifications").value,
-projects:document.getElementById("projects").value
+skills:skills.value,
+certifications:certifications.value,
+projects:projects.value
 
 }
 
-localStorage.setItem("resumeForm", JSON.stringify(data))
+localStorage.setItem("resumeForm",JSON.stringify(data))
 localStorage.setItem("paymentAllowed","true")
 
 }
