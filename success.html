@@ -2,121 +2,77 @@
 <html>
 
 <head>
-
 <title>Your Resume</title>
 <link rel="stylesheet" href="style.css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
 </head>
 
 <body>
 
-<header>
-<h1>Your Resume</h1>
-</header>
+<h1 style="text-align:center">Your Resume</h1>
 
-
-<div id="statusMessage" style="text-align:center">
-
-Generating Resume
-
-<span class="loading-dots">
-<span>●</span>
-<span>●</span>
-<span>●</span>
-</span>
-
-<p>Please wait while AI prepares your resume.</p>
-
-<p>⚠ Do not click download until preview appears.</p>
-
+<div id="loading" style="text-align:center">
+Generating Resume...
 </div>
 
-
-<div class="resume-wrapper" id="resumeOutput" style="display:none"></div>
-
+<div id="output" class="resume-wrapper" style="display:none"></div>
 
 <br>
 
 <div style="text-align:center">
-
-<button id="pdfBtn" onclick="downloadPDF()" class="btn19" disabled>
-Download PDF
-</button>
-
-<button id="docBtn" onclick="downloadWord()" class="btn29" disabled>
-Download Word
-</button>
-
+<button onclick="downloadPDF()" id="pdfBtn" disabled>Download PDF</button>
+<button onclick="downloadWord()" id="docBtn" disabled>Download Word</button>
 </div>
 
 
 <script>
 
-if(!localStorage.getItem("paymentAllowed")){
+async function generate(){
 
-document.body.innerHTML="Unauthorized Access"
-throw new Error("Blocked")
+let data = JSON.parse(localStorage.getItem("resumeForm"))
 
-}
-
-
-async function generateResume(){
-
-let data=JSON.parse(localStorage.getItem("resumeForm"))
-
-let response=await fetch("https://resume-ai-api-tg2p.onrender.com/generate-resume",{
-
+let res = await fetch("https://resume-ai-api-tg2p.onrender.com/generate-resume",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify(data)
-
 })
 
-let result=await response.json()
+let result = await res.json()
 
-document.getElementById("resumeOutput").innerHTML=result.resume
+document.getElementById("output").innerHTML = result.resume
 
-document.getElementById("resumeOutput").style.display="block"
-
-document.getElementById("statusMessage").style.display="none"
+document.getElementById("output").style.display="block"
+document.getElementById("loading").style.display="none"
 
 document.getElementById("pdfBtn").disabled=false
 document.getElementById("docBtn").disabled=false
 
 }
 
-generateResume()
+generate()
 
 
 function downloadPDF(){
 
-let element=document.querySelector(".resume-wrapper")
-
-html2pdf().from(element).save("resume.pdf")
+html2pdf().from(document.getElementById("output")).save("resume.pdf")
 
 }
 
 
 function downloadWord(){
 
-let content=document.getElementById("resumeOutput").innerHTML
+let content = document.getElementById("output").innerHTML
 
-let blob=new Blob(['<html><body>'+content+'</body></html>'],{type:"application/msword"})
+let blob = new Blob(['<html><body>'+content+'</body></html>'], {type:'application/msword'})
 
-let link=document.createElement("a")
-
-link.href=URL.createObjectURL(blob)
-
-link.download="resume.doc"
-
-link.click()
+let a = document.createElement("a")
+a.href = URL.createObjectURL(blob)
+a.download = "resume.doc"
+a.click()
 
 }
 
 </script>
 
 </body>
-
 </html>
