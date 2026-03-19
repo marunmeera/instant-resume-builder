@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instant Resume Builder</title>
+<title>Instant Resume Builder (20:30)</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -33,38 +33,30 @@
 
 <h3>Academics (Recent First)</h3>
 
-<table id="academicsTable">
-<tr>
-<th>Qualification</th>
-<th>Institution</th>
-<th>Grade</th>
-</tr>
+<div id="education">
 
-<tr>
-<td><input></td>
-<td><input></td>
-<td><input></td>
-</tr>
-</table>
+<div class="edu-block">
+<input placeholder="Qualification">
+<input placeholder="Institution">
+<input placeholder="Grade">
+</div>
 
-<button onclick="addAcademic()">+ Add Academic</button>
+</div>
+
+<button onclick="addEducation()">+ Add Academic</button>
 
 
 <h3>Work Experience (Recent First)</h3>
 
-<table id="experienceTable">
-<tr>
-<th>Company</th>
-<th>Role</th>
-<th>Description</th>
-</tr>
+<div id="experience">
 
-<tr>
-<td><input></td>
-<td><input></td>
-<td><input></td>
-</tr>
-</table>
+<div class="exp-block">
+<input placeholder="Company">
+<input placeholder="Role">
+<textarea placeholder="Description"></textarea>
+</div>
+
+</div>
 
 <button onclick="addExperience()">+ Add Experience</button>
 
