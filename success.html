@@ -2,8 +2,9 @@
 <html>
 
 <head>
-<title>Your Resume</title>
+<title>Your Resume (20:30)</title>
 <link rel="stylesheet" href="style.css">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
@@ -24,28 +25,27 @@ Generating Resume...
 <button onclick="downloadWord()" id="docBtn" disabled>Download Word</button>
 </div>
 
-
 <script>
 
 async function generate(){
 
-let data = JSON.parse(localStorage.getItem("resumeForm"))
+let data=JSON.parse(localStorage.getItem("resumeForm"))
 
-let res = await fetch("https://resume-ai-api-tg2p.onrender.com/generate-resume",{
+let res=await fetch("https://resume-ai-api-tg2p.onrender.com/generate-resume",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify(data)
 })
 
-let result = await res.json()
+let result=await res.json()
 
-document.getElementById("output").innerHTML = result.resume
+document.getElementById("output").innerHTML=result.resume
 
 document.getElementById("output").style.display="block"
 document.getElementById("loading").style.display="none"
 
-document.getElementById("pdfBtn").disabled=false
-document.getElementById("docBtn").disabled=false
+pdfBtn.disabled=false
+docBtn.disabled=false
 
 }
 
@@ -54,20 +54,38 @@ generate()
 
 function downloadPDF(){
 
-html2pdf().from(document.getElementById("output")).save("resume.pdf")
+html2pdf({
+margin:10,
+filename:"resume.pdf",
+html2canvas:{scale:2},
+jsPDF:{unit:'mm',format:'a4'}
+}).from(document.getElementById("output")).save()
 
 }
 
 
 function downloadWord(){
 
-let content = document.getElementById("output").innerHTML
+let content=document.getElementById("output").innerHTML
 
-let blob = new Blob(['<html><body>'+content+'</body></html>'], {type:'application/msword'})
+let html=`
+<html>
+<head>
+<style>
+body{font-family:Arial;padding:30px;}
+h1{color:#0033aa;}
+h2{border-bottom:1px solid #ccc;}
+</style>
+</head>
+<body>${content}</body>
+</html>
+`
 
-let a = document.createElement("a")
-a.href = URL.createObjectURL(blob)
-a.download = "resume.doc"
+let blob=new Blob([html],{type:"application/msword"})
+
+let a=document.createElement("a")
+a.href=URL.createObjectURL(blob)
+a.download="resume.doc"
 a.click()
 
 }
