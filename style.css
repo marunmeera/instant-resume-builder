@@ -1,46 +1,91 @@
-body{
-font-family:Arial;
-background:#f5f6fa;
-margin:0;
+body {
+font-family: Arial;
+margin: 0;
+background: white;
+color: black;
 }
 
-header{
-text-align:center;
-padding:20px;
+header {
+text-align: center;
+padding: 20px;
 }
 
-.container{
-max-width:1000px;
-margin:auto;
-padding:20px;
+h1 {
+color: #0b3d91;
 }
 
-.card{
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
+.container {
+display: flex;
+justify-content: center;
+padding: 20px;
 }
 
-input,textarea{
-width:100%;
-margin:5px 0;
-padding:10px;
-border:1px solid #ccc;
-border-radius:5px;
+.card {
+width: 90%;
+max-width: 900px;
+padding: 20px;
+border: 1px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-button{
-padding:10px 15px;
-margin-top:10px;
-cursor:pointer;
+input, textarea {
+width: 100%;
+margin-bottom: 10px;
+padding: 10px;
+border-radius: 5px;
+border: 1px solid #ccc;
 }
 
-.resume-wrapper{
-width:800px;
-margin:auto;
-background:white;
-padding:40px;
-border:2px solid #0033aa;
-line-height:1.6;
+button {
+padding: 10px;
+margin: 5px;
+cursor: pointer;
+border: none;
+border-radius: 5px;
+}
+
+.btn19 {
+background: #0b3d91;
+color: white;
+}
+
+.btn29 {
+background: black;
+color: white;
+}
+
+/* STYLE CARDS */
+
+.style-container {
+display: flex;
+justify-content: center;
+gap: 20px;
+padding: 20px;
+}
+
+.style-card {
+border: 2px solid #ccc;
+padding: 10px;
+cursor: pointer;
+width: 150px;
+text-align: center;
+border-radius: 10px;
+}
+
+.style-card img {
+width: 100%;
+}
+
+.style-card.selected {
+border: 2px solid #0b3d91;
+}
+
+/* SEPARATOR */
+
+.block {
+border: 1px solid #eee;
+padding: 10px;
+margin-bottom: 10px;
+border-radius: 5px;
 }
