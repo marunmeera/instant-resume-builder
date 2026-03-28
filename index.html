@@ -4,22 +4,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instant Resume Builder (20:30)</title>
+
+<title>Instant Resume Builder</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <header>
 <h1>Instant Resume Builder</h1>
-<p>Create professional resumes in minutes</p>
+<p>Create a job-winning resume in 2 minutes</p>
 </header>
 
-<div class="container">
+<!-- STYLE SELECTION -->
 
+<div class="style-container">
+
+<div class="style-card selected" onclick="selectStyle('classic', this)">
+<h3>Classic</h3>
+<p>ATS Friendly</p>
+<img src="classic.jpg">
+</div>
+
+<div class="style-card" onclick="selectStyle('professional', this)">
+<h3>Professional</h3>
+<p>Balanced Modern</p>
+<img src="professional.jpg">
+</div>
+
+<div class="style-card" onclick="selectStyle('elite', this)">
+<h3>Elite</h3>
+<p>Premium Executive</p>
+<img src="elite.jpg">
+</div>
+
+</div>
+
+<!-- FORM -->
+
+<div class="container">
 <div class="card">
 
-<h2>Generate Resume</h2>
+<h2>Enter Your Details</h2>
 
 <label>Full Name</label>
 <input id="name">
@@ -30,54 +58,35 @@
 <label>Email</label>
 <input id="email">
 
+<h3>Academics (Latest First)</h3>
 
-<h3>Academics (Recent First)</h3>
+<div id="academics"></div>
 
-<div id="education">
+<button onclick="addAcademic()">+ Add Academic</button>
 
-<div class="edu-block">
-<input placeholder="Qualification">
-<input placeholder="Institution">
-<input placeholder="Grade">
-</div>
+<h3>Work Experience (Latest First)</h3>
 
-</div>
-
-<button onclick="addEducation()">+ Add Academic</button>
-
-
-<h3>Work Experience (Recent First)</h3>
-
-<div id="experience">
-
-<div class="exp-block">
-<input placeholder="Company">
-<input placeholder="Role">
-<textarea placeholder="Description"></textarea>
-</div>
-
-</div>
+<div id="experience"></div>
 
 <button onclick="addExperience()">+ Add Experience</button>
-
 
 <h3>Skills</h3>
 <textarea id="skills"></textarea>
 
-<h3>Certifications</h3>
-<textarea id="certifications"></textarea>
-
-<h3>Projects</h3>
+<h3>Projects (Optional)</h3>
 <textarea id="projects"></textarea>
 
+<br>
 
-<br><br>
+<button class="btn19" onclick="startPayment(19)">
+Generate PDF ₹19
+</button>
 
-<button onclick="payPDF()">Generate PDF ₹19</button>
-<button onclick="payEditable()">Editable ₹29</button>
+<button class="btn29" onclick="startPayment(29)">
+Editable Resume ₹29
+</button>
 
 </div>
-
 </div>
 
 <script src="resume-generator.js"></script>
