@@ -2,93 +2,41 @@
 <html>
 
 <head>
-<title>Your Resume (20:30)</title>
+<title>Generating Resume</title>
 <link rel="stylesheet" href="style.css">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
 
-<h1 style="text-align:center">Your Resume</h1>
+<div class="container">
+<div class="card">
 
-<div id="loading" style="text-align:center">
-Generating Resume...
+<h2>Generating Resume...</h2>
+<p>Please wait, do not refresh</p>
+
 </div>
-
-<div id="output" class="resume-wrapper" style="display:none"></div>
-
-<br>
-
-<div style="text-align:center">
-<button onclick="downloadPDF()" id="pdfBtn" disabled>Download PDF</button>
-<button onclick="downloadWord()" id="docBtn" disabled>Download Word</button>
 </div>
 
 <script>
 
-async function generate(){
+async function generate() {
 
-let data=JSON.parse(localStorage.getItem("resumeForm"))
+const data = JSON.parse(localStorage.getItem("resumeData"));
 
-let res=await fetch("https://resume-ai-api-tg2p.onrender.com/generate-resume",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(data)
-})
+const res = await fetch("https://resume-ai-api-tg2p.onrender.com/generate", {
+method: "POST",
+headers: {"Content-Type":"application/json"},
+body: JSON.stringify(data)
+});
 
-let result=await res.json()
+const result = await res.json();
 
-document.getElementById("output").innerHTML=result.resume
+localStorage.setItem("resumeOutput", result.resume);
 
-document.getElementById("output").style.display="block"
-document.getElementById("loading").style.display="none"
-
-pdfBtn.disabled=false
-docBtn.disabled=false
-
+window.location.href = "download.html";
 }
 
-generate()
-
-
-function downloadPDF(){
-
-html2pdf({
-margin:10,
-filename:"resume.pdf",
-html2canvas:{scale:2},
-jsPDF:{unit:'mm',format:'a4'}
-}).from(document.getElementById("output")).save()
-
-}
-
-
-function downloadWord(){
-
-let content=document.getElementById("output").innerHTML
-
-let html=`
-<html>
-<head>
-<style>
-body{font-family:Arial;padding:30px;}
-h1{color:#0033aa;}
-h2{border-bottom:1px solid #ccc;}
-</style>
-</head>
-<body>${content}</body>
-</html>
-`
-
-let blob=new Blob([html],{type:"application/msword"})
-
-let a=document.createElement("a")
-a.href=URL.createObjectURL(blob)
-a.download="resume.doc"
-a.click()
-
-}
+generate();
 
 </script>
 
