@@ -1,142 +1,79 @@
-const TEST_MODE = true
+let selectedStyle = "classic";
 
+// STYLE SELECT
+function selectStyle(style, el) {
+selectedStyle = style;
 
-function addEducation(){
+document.querySelectorAll(".style-card").forEach(card => {
+card.classList.remove("selected");
+});
 
-let div = document.createElement("div")
+el.classList.add("selected");
+}
 
-div.className="edu-block"
+// ADD ACADEMIC
+function addAcademic() {
+const div = document.createElement("div");
+div.className = "block";
 
 div.innerHTML = `
-<hr>
 <input placeholder="Qualification">
 <input placeholder="Institution">
 <input placeholder="Grade">
-`
+`;
 
-document.getElementById("education").prepend(div)
-
+document.getElementById("academics").prepend(div);
 }
 
-
-function addExperience(){
-
-let div = document.createElement("div")
-
-div.className="exp-block"
+// ADD EXPERIENCE
+function addExperience() {
+const div = document.createElement("div");
+div.className = "block";
 
 div.innerHTML = `
-<hr>
 <input placeholder="Company">
 <input placeholder="Role">
 <textarea placeholder="Description"></textarea>
-`
+`;
 
-document.getElementById("experience").prepend(div)
-
+document.getElementById("experience").prepend(div);
 }
 
+// START PAYMENT
+function startPayment(amount) {
 
-function getEducation(){
+const academics = [];
+document.querySelectorAll("#academics .block").forEach(b => {
+academics.push([...b.querySelectorAll("input")].map(i => i.value));
+});
 
-let blocks = document.querySelectorAll(".edu-block")
+const experience = [];
+document.querySelectorAll("#experience .block").forEach(b => {
+experience.push({
+company: b.querySelectorAll("input")[0].value,
+role: b.querySelectorAll("input")[1].value,
+desc: b.querySelector("textarea").value
+});
+});
 
-let data=[]
+const data = {
+name: document.getElementById("name").value,
+mobile: document.getElementById("mobile").value,
+email: document.getElementById("email").value,
+skills: document.getElementById("skills").value,
+projects: document.getElementById("projects").value,
+academics,
+experience,
+style: selectedStyle,
+amount
+};
 
-blocks.forEach(b=>{
+localStorage.setItem("resumeData", JSON.stringify(data));
 
-let inputs=b.querySelectorAll("input")
-
-let values=[]
-
-inputs.forEach(i=>{
-if(i.value.trim()!==""){
-values.push(i.value)
+// Razorpay redirect
+if (amount == 19) {
+window.location.href = "https://rzp.io/rzp/BD83t1T9";
+} else {
+window.location.href = "https://rzp.io/rzp/h2uXLa7";
 }
-})
-
-if(values.length>0){
-data.push(values.join(" - "))
-}
-
-})
-
-return data.join("\n")
-}
-
-
-function getExperience(){
-
-let blocks=document.querySelectorAll(".exp-block")
-
-let data=[]
-
-blocks.forEach(b=>{
-
-let inputs=b.querySelectorAll("input,textarea")
-
-let values=[]
-
-inputs.forEach(i=>{
-if(i.value.trim()!==""){
-values.push(i.value)
-}
-})
-
-if(values.length>0){
-data.push(values.join(" - "))
-}
-
-})
-
-return data.join("\n")
-}
-
-
-function saveFormData(){
-
-let data={
-
-name:name.value,
-mobile:mobile.value,
-email:email.value,
-
-education:getEducation(),
-experience:getExperience(),
-
-skills:skills.value,
-certifications:certifications.value,
-projects:projects.value
-
-}
-
-localStorage.setItem("resumeForm",JSON.stringify(data))
-localStorage.setItem("paymentAllowed","true")
-
-}
-
-
-function payPDF(){
-
-saveFormData()
-
-if(TEST_MODE){
-window.location.href="success.html"
-}else{
-window.location.href="https://rzp.io/rzp/BD83t1T9"
-}
-
-}
-
-
-function payEditable(){
-
-saveFormData()
-
-if(TEST_MODE){
-window.location.href="success.html"
-}else{
-window.location.href="https://rzp.io/rzp/h2uXLa7"
-}
-
 }
