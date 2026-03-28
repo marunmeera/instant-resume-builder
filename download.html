@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Download Resume</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+<div class="card">
+
+<h2>Your Resume is Ready</h2>
+
+<button onclick="downloadPDF()">Download PDF</button>
+<button onclick="downloadWord()">Download Word</button>
+
+</div>
+</div>
+
+<script>
+
+function downloadPDF() {
+const content = localStorage.getItem("resumeOutput");
+const blob = new Blob([content], { type: "application/pdf" });
+const link = document.createElement("a");
+link.href = URL.createObjectURL(blob);
+link.download = "resume.pdf";
+link.click();
+}
+
+function downloadWord() {
+const content = localStorage.getItem("resumeOutput");
+const blob = new Blob([content], { type: "application/msword" });
+const link = document.createElement("a");
+link.href = URL.createObjectURL(blob);
+link.download = "resume.doc";
+link.click();
+}
+
+</script>
+
+</body>
+</html>
