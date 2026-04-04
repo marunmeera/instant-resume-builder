@@ -1,22 +1,14 @@
-let selectedStyle = "classic";
-
-// STYLE SELECT
-function selectStyle(style, el) {
-selectedStyle = style;
-
-document.querySelectorAll(".style-card").forEach(card => {
-card.classList.remove("selected");
-});
-
-el.classList.add("selected");
+function removeBlock(btn){
+btn.parentElement.remove();
 }
 
-// ADD ACADEMIC
-function addAcademic() {
+// ACADEMIC
+function addAcademic(){
 const div = document.createElement("div");
 div.className = "block";
 
 div.innerHTML = `
+<button class="remove-btn" onclick="removeBlock(this)">-</button>
 <input placeholder="Qualification">
 <input placeholder="Institution">
 <input placeholder="Grade">
@@ -25,55 +17,63 @@ div.innerHTML = `
 document.getElementById("academics").prepend(div);
 }
 
-// ADD EXPERIENCE
-function addExperience() {
+// EXPERIENCE
+function addExperience(){
 const div = document.createElement("div");
 div.className = "block";
 
 div.innerHTML = `
-<input placeholder="Company">
-<input placeholder="Role">
-<textarea placeholder="Description"></textarea>
+<button class="remove-btn" onclick="removeBlock(this)">-</button>
+<input placeholder="Company Name">
+<input placeholder="Designation">
+<input placeholder="Start Date">
+<input placeholder="End Date">
+<textarea placeholder="Roles & Responsibilities"></textarea>
+<textarea placeholder="Key Accomplishments (1 per line)"></textarea>
 `;
 
 document.getElementById("experience").prepend(div);
 }
 
-// START PAYMENT
-function startPayment(amount) {
+// SKILLS
+function addSkill(){
+const div = document.createElement("div");
+div.className = "block";
 
-const academics = [];
-document.querySelectorAll("#academics .block").forEach(b => {
-academics.push([...b.querySelectorAll("input")].map(i => i.value));
-});
+div.innerHTML = `
+<button class="remove-btn" onclick="removeBlock(this)">-</button>
+<input placeholder="Skill Title (1 per line)">
+<input placeholder="Institute Name">
+<input placeholder="Year of Completion">
+`;
 
-const experience = [];
-document.querySelectorAll("#experience .block").forEach(b => {
-experience.push({
-company: b.querySelectorAll("input")[0].value,
-role: b.querySelectorAll("input")[1].value,
-desc: b.querySelector("textarea").value
-});
-});
+document.getElementById("skillsSection").prepend(div);
+}
+
+// CUSTOM
+function addCustom(){
+const div = document.createElement("div");
+div.className = "block";
+
+div.innerHTML = `
+<button class="remove-btn" onclick="removeBlock(this)">-</button>
+<input placeholder="Section Title">
+<textarea placeholder="Description"></textarea>
+<input placeholder="Year">
+`;
+
+document.getElementById("customSection").prepend(div);
+}
+
+// SAVE BEFORE PAYMENT
+function preparePayment(){
 
 const data = {
 name: document.getElementById("name").value,
 mobile: document.getElementById("mobile").value,
 email: document.getElementById("email").value,
-skills: document.getElementById("skills").value,
-projects: document.getElementById("projects").value,
-academics,
-experience,
-style: selectedStyle,
-amount
+projects: document.getElementById("projects").value
 };
 
 localStorage.setItem("resumeData", JSON.stringify(data));
-
-// Razorpay redirect
-if (amount == 19) {
-window.location.href = "https://rzp.io/rzp/BD83t1T9";
-} else {
-window.location.href = "https://rzp.io/rzp/h2uXLa7";
-}
 }
