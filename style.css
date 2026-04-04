@@ -1,170 +1,177 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instant Resume Builder</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-
-<!-- NAVBAR -->
-<div class="navbar">
-<div class="logo">Instant Resume Builder</div>
-<div>AI Resume Builder</div>
-</div>
-
-
-<!-- HERO -->
-<div class="hero">
-<h1>Build a Job-Winning Resume in 2 Minutes</h1>
-<p>No design skills needed • ATS-friendly • AI-powered</p>
-<button class="cta" onclick="scrollToForm()">Start Building →</button>
-</div>
-
-
-<!-- TRUST -->
-<div class="trust-strip">
-<span>✔ Trusted by 1,000+ users</span>
-<span>✔ Instant Download</span>
-<span>✔ No Signup Required</span>
-</div>
-
-
-<!-- FORM -->
-<div class="container">
-<div class="card" id="formSection">
-
-<h2>Create Your Resume</h2>
-
-<label>Full Name</label>
-<input id="name">
-
-<label>Mobile</label>
-<input id="mobile">
-
-<label>Email</label>
-<input id="email">
-
-
-<h3>Education <button onclick="addAcademic()" class="add-btn">+</button></h3>
-<div id="academics"></div>
-
-
-<h3>Work Experience <button onclick="addExperience()" class="add-btn">+</button></h3>
-<div id="experience"></div>
-
-
-<h3>Skills <button onclick="addSkill()" class="add-btn">+</button></h3>
-<div id="skillsSection"></div>
-
-
-<h3>Projects</h3>
-<textarea id="projects"></textarea>
-
-
-<!-- VALUE -->
-<div class="value-box">
-<p>💡 Your resume will be:</p>
-<ul>
-<li>✔ ATS-friendly</li>
-<li>✔ Recruiter-approved</li>
-<li>✔ Clean & professional</li>
-</ul>
-</div>
-
-
-<!-- 🔥 PRICING BUTTONS (CUSTOM) -->
-<div class="pricing">
-
-<div class="price-card highlight">
-<p class="tag">Most Popular</p>
-<h3>Editable Resume</h3>
-<p class="price">₹29</p>
-<ul>
-<li>✔ Word format</li>
-<li>✔ Easy editing</li>
-<li>✔ Lifetime use</li>
-</ul>
-
-<button class="pay-btn" onclick="startPayment(29)">
-Get Editable Resume →
-</button>
-</div>
-
-
-<div class="price-card">
-<h3>PDF Resume</h3>
-<p class="price">₹19</p>
-<ul>
-<li>✔ Ready to send</li>
-<li>✔ Clean format</li>
-</ul>
-
-<button class="pay-btn" onclick="startPayment(19)">
-Get PDF Resume →
-</button>
-</div>
-
-</div>
-
-<p class="trust">🔒 Secure payment via Razorpay</p>
-
-</div>
-</div>
-
-
-<!-- 🔥 HIDDEN RAZORPAY BUTTONS -->
-<div style="display:none">
-<form id="pay19">
-<script src="https://checkout.razorpay.com/v1/payment-button.js"
-data-payment_button_id="pl_SZKlB7ME0Iami0"
-async></script>
-</form>
-
-<form id="pay29">
-<script src="https://checkout.razorpay.com/v1/payment-button.js"
-data-payment_button_id="pl_SZS6gp4g5DdYuW"
-async></script>
-</form>
-</div>
-
-
-<script src="resume-generator.js"></script>
-
-<script>
-
-function scrollToForm(){
-document.getElementById("formSection").scrollIntoView({behavior:"smooth"});
+body {
+font-family: 'Segoe UI', Arial, sans-serif;
+margin: 0;
+background: #f7f9fc;
+color: #111;
 }
 
-function startPayment(amount){
-
-// 🔴 VALIDATION FIRST
-if(!document.getElementById("name").value ||
-   !document.getElementById("mobile").value ||
-   !document.getElementById("email").value){
-
-alert("Please fill basic details first");
-return;
+/* NAVBAR */
+.navbar {
+display: flex;
+justify-content: space-between;
+padding: 12px 25px;
+background: white;
+border-bottom: 1px solid #eee;
 }
 
-// ✅ SAVE DATA
-preparePayment();
-
-// ✅ TRIGGER CORRECT BUTTON
-if(amount === 19){
-document.querySelector("#pay19 form button")?.click();
-} else {
-document.querySelector("#pay29 form button")?.click();
+.logo {
+font-weight: bold;
+color: #0b3d91;
+font-size: 14px;
 }
 
+/* HERO (FIXED SPACING) */
+.hero {
+text-align: center;
+padding: 50px 20px; /* reduced from 80px */
+background: linear-gradient(135deg,#0b3d91,#2563eb);
+color: white;
 }
 
-</script>
+.hero h1 {
+font-size: 30px;
+margin-bottom: 8px;
+}
 
-</body>
-</html>
+.hero p {
+margin: 0;
+opacity: 0.9;
+}
+
+.cta {
+margin-top: 15px;
+padding: 10px 20px;
+background: white;
+color: #0b3d91;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+font-weight: bold;
+}
+
+/* TRUST STRIP (TIGHTENED) */
+.trust-strip {
+display: flex;
+justify-content: center;
+gap: 20px;
+padding: 10px;
+background: #eef4ff;
+font-size: 12px;
+}
+
+/* MAIN */
+.container {
+display: flex;
+justify-content: center;
+padding: 25px 15px; /* reduced spacing */
+}
+
+/* CARD (WIDER + CLEAN) */
+.card {
+width: 100%;
+max-width: 950px; /* increased */
+background: white;
+padding: 25px;
+border-radius: 12px;
+box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+/* INPUTS */
+input, textarea {
+width: 100%;
+padding: 12px;
+margin-bottom: 12px;
+border-radius: 6px;
+border: 1px solid #ccc;
+}
+
+/* BLOCK */
+.block {
+border: 1px solid #eee;
+padding: 12px;
+border-radius: 8px;
+margin-bottom: 10px;
+background: #fafafa;
+position: relative;
+}
+
+/* BUTTONS */
+.add-btn {
+background: #0b3d91;
+color: white;
+border: none;
+padding: 3px 8px;
+margin-left: 6px;
+cursor: pointer;
+border-radius: 4px;
+}
+
+.remove-btn {
+position: absolute;
+right: 8px;
+top: 8px;
+background: red;
+color: white;
+border: none;
+padding: 3px 7px;
+cursor: pointer;
+}
+
+/* VALUE BOX */
+.value-box {
+background: #eef4ff;
+padding: 12px;
+border-radius: 8px;
+margin-top: 10px;
+}
+
+/* PRICING */
+.pricing {
+display: flex;
+gap: 15px;
+margin-top: 20px;
+flex-wrap: wrap;
+}
+
+.price-card {
+flex: 1;
+min-width: 260px;
+padding: 18px;
+border-radius: 10px;
+border: 1px solid #ddd;
+text-align: center;
+background: #fafbff;
+}
+
+.highlight {
+border: 2px solid #0b3d91;
+background: #eef4ff;
+}
+
+.tag {
+color: #0b3d91;
+font-weight: bold;
+font-size: 11px;
+}
+
+.price {
+font-size: 24px;
+font-weight: bold;
+margin: 8px 0;
+}
+
+/* TRUST */
+.trust {
+text-align: center;
+margin-top: 12px;
+font-size: 11px;
+color: #666;
+}
+
+/* FOOTER */
+.footer {
+text-align: center;
+padding: 15px;
+font-size: 11px;
+color: #777;
+}
