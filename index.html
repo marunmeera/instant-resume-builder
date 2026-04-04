@@ -4,68 +4,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Instant Resume Builder</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<header>
-<h1>Instant Resume Builder</h1>
-<p>Create a job-winning resume in 2 minutes</p>
-</header>
+<!-- HERO SECTION -->
+
+<div class="hero">
+
+<h1>Build a Job-Winning Resume in 2 Minutes</h1>
+
+<p>No design skills needed. ATS-friendly & AI-powered.</p>
+
+<div class="badges">
+<span>ATS Friendly</span>
+<span>AI Powered</span>
+<span>Instant Download</span>
+</div>
+
+</div>
+
+<!-- MAIN FORM -->
 
 <div class="container">
 <div class="card">
 
+<h2>Enter Your Details</h2>
+
 <label>Full Name</label>
-<input id="name">
+<input id="name" placeholder="Enter your full name">
 
 <label>Mobile</label>
-<input id="mobile">
+<input id="mobile" placeholder="Enter mobile number">
 
 <label>Email</label>
-<input id="email">
+<input id="email" placeholder="Enter email address">
 
 <!-- ACADEMICS -->
+
 <h3>
-+ Academics (Latest First)
+Academics (Latest First)
 <button class="add-btn" onclick="addAcademic()">+</button>
 </h3>
 <p class="hint">Click "+" to add another entry</p>
 <div id="academics"></div>
 
 <!-- EXPERIENCE -->
+
 <h3>
-+ Work Experience (Latest First)
+Work Experience (Latest First)
 <button class="add-btn" onclick="addExperience()">+</button>
 </h3>
 <p class="hint">Click "+" to add another entry</p>
 <div id="experience"></div>
 
 <!-- SKILLS -->
+
 <h3>
-+ Skills
+Skills
 <button class="add-btn" onclick="addSkill()">+</button>
 </h3>
 <p class="hint">Click "+" to add another entry</p>
 <div id="skillsSection"></div>
 
 <!-- PROJECTS -->
+
 <h3>Projects</h3>
-<textarea id="projects" placeholder="Enter the list of projects per line you completed in school, college, etc."></textarea>
+<textarea id="projects" placeholder="List projects (one per line)"></textarea>
 
 <!-- CUSTOM -->
+
 <h3>
-+ Create Own Section
+Additional Sections
 <button class="add-btn" onclick="addCustom()">+</button>
 </h3>
-<p class="hint">Click "+" to add another section</p>
+<p class="hint">Add achievements, certifications, etc.</p>
 <div id="customSection"></div>
 
 <br>
 
-<!-- RAZORPAY BUTTON -->
+<!-- PAYMENT CTA -->
+
+<div class="cta-box">
+
+<p class="cta-text">Get your professional resume instantly</p>
+
 <div onclick="preparePayment()">
 <form>
 <script src="https://checkout.razorpay.com/v1/payment-button.js"
@@ -73,6 +101,8 @@ data-payment_button_id="pl_SZKlB7ME0Iami0"
 async>
 </script>
 </form>
+</div>
+
 </div>
 
 </div>
