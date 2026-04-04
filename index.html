@@ -11,28 +11,22 @@
 
 <body>
 
-<!-- 🔥 NAVBAR -->
+<!-- NAVBAR -->
 <div class="navbar">
-<div class="logo">IRB</div>
-<div class="nav-right">
-<span>AI Resume Builder</span>
-</div>
+<div class="logo">Instant Resume Builder</div>
+<div>AI Resume Builder</div>
 </div>
 
 
-<!-- 🔥 HERO -->
+<!-- HERO -->
 <div class="hero">
-
 <h1>Build a Job-Winning Resume in 2 Minutes</h1>
-
 <p>No design skills needed • ATS-friendly • AI-powered</p>
-
 <button class="cta" onclick="scrollToForm()">Start Building →</button>
-
 </div>
 
 
-<!-- 🔥 TRUST STRIP -->
+<!-- TRUST -->
 <div class="trust-strip">
 <span>✔ Trusted by 1,000+ users</span>
 <span>✔ Instant Download</span>
@@ -40,9 +34,8 @@
 </div>
 
 
-<!-- 🔥 MAIN FORM -->
+<!-- FORM -->
 <div class="container">
-
 <div class="card" id="formSection">
 
 <h2>Create Your Resume</h2>
@@ -73,55 +66,47 @@
 <textarea id="projects"></textarea>
 
 
-<!-- 🔥 VALUE BOX -->
+<!-- VALUE -->
 <div class="value-box">
 <p>💡 Your resume will be:</p>
 <ul>
 <li>✔ ATS-friendly</li>
-<li>✔ Recruiter-approved format</li>
+<li>✔ Recruiter-approved</li>
 <li>✔ Clean & professional</li>
 </ul>
 </div>
 
 
-<!-- 🔥 PRICING -->
+<!-- 🔥 PRICING BUTTONS (CUSTOM) -->
 <div class="pricing">
 
 <div class="price-card highlight">
 <p class="tag">Most Popular</p>
 <h3>Editable Resume</h3>
 <p class="price">₹29</p>
-
 <ul>
 <li>✔ Word format</li>
 <li>✔ Easy editing</li>
 <li>✔ Lifetime use</li>
 </ul>
 
-<form onsubmit="preparePayment()">
-<script src="https://checkout.razorpay.com/v1/payment-button.js"
-data-payment_button_id="pl_SZS6gp4g5DdYuW"
-async></script>
-</form>
-
+<button class="pay-btn" onclick="startPayment(29)">
+Get Editable Resume →
+</button>
 </div>
 
 
 <div class="price-card">
 <h3>PDF Resume</h3>
 <p class="price">₹19</p>
-
 <ul>
 <li>✔ Ready to send</li>
 <li>✔ Clean format</li>
 </ul>
 
-<form onsubmit="preparePayment()">
-<script src="https://checkout.razorpay.com/v1/payment-button.js"
-data-payment_button_id="pl_SZKlB7ME0Iami0"
-async></script>
-</form>
-
+<button class="pay-btn" onclick="startPayment(19)">
+Get PDF Resume →
+</button>
 </div>
 
 </div>
@@ -129,22 +114,56 @@ async></script>
 <p class="trust">🔒 Secure payment via Razorpay</p>
 
 </div>
-
 </div>
 
 
-<!-- 🔥 FOOTER -->
-<div class="footer">
-<p>© 2026 Instant Resume Builder</p>
+<!-- 🔥 HIDDEN RAZORPAY BUTTONS -->
+<div style="display:none">
+<form id="pay19">
+<script src="https://checkout.razorpay.com/v1/payment-button.js"
+data-payment_button_id="pl_SZKlB7ME0Iami0"
+async></script>
+</form>
+
+<form id="pay29">
+<script src="https://checkout.razorpay.com/v1/payment-button.js"
+data-payment_button_id="pl_SZS6gp4g5DdYuW"
+async></script>
+</form>
 </div>
 
 
 <script src="resume-generator.js"></script>
 
 <script>
+
 function scrollToForm(){
 document.getElementById("formSection").scrollIntoView({behavior:"smooth"});
 }
+
+function startPayment(amount){
+
+// 🔴 VALIDATION FIRST
+if(!document.getElementById("name").value ||
+   !document.getElementById("mobile").value ||
+   !document.getElementById("email").value){
+
+alert("Please fill basic details first");
+return;
+}
+
+// ✅ SAVE DATA
+preparePayment();
+
+// ✅ TRIGGER CORRECT BUTTON
+if(amount === 19){
+document.querySelector("#pay19 form button")?.click();
+} else {
+document.querySelector("#pay29 form button")?.click();
+}
+
+}
+
 </script>
 
 </body>
