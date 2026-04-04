@@ -1,43 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Download Resume</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instant Resume Builder</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
+<div class="hero">
+<h1>Build a Job-Winning Resume in 2 Minutes</h1>
+<p>ATS-friendly | AI-powered | Instant download</p>
+</div>
+
 <div class="container">
+
 <div class="card">
 
-<h2>Your Resume is Ready</h2>
+<label>Full Name</label>
+<input id="name">
 
-<button onclick="downloadPDF()">Download PDF</button>
-<button onclick="downloadWord()">Download Word</button>
+<label>Mobile</label>
+<input id="mobile">
+
+<label>Email</label>
+<input id="email">
+
+
+<h3>Education 
+<button onclick="addAcademic()" class="add-btn">+</button>
+</h3>
+<div id="academics"></div>
+
+
+<h3>Work Experience 
+<button onclick="addExperience()" class="add-btn">+</button>
+</h3>
+<div id="experience"></div>
+
+
+<h3>Skills 
+<button onclick="addSkill()" class="add-btn">+</button>
+</h3>
+<div id="skillsSection"></div>
+
+
+<h3>Projects</h3>
+<textarea id="projects"></textarea>
+
+
+<!-- 🔥 PAYMENT SECTION -->
+<div class="payment-section">
+
+<div class="pay-box">
+<p>PDF Resume</p>
+<form onsubmit="preparePayment()">
+<script src="https://checkout.razorpay.com/v1/payment-button.js"
+data-payment_button_id="pl_SZKlB7ME0Iami0"
+async></script>
+</form>
+</div>
+
+<div class="pay-box">
+<p>Editable Resume (Word)</p>
+<form onsubmit="preparePayment()">
+<script src="https://checkout.razorpay.com/v1/payment-button.js"
+data-payment_button_id="pl_SZS6gp4g5DdYuW"
+async></script>
+</form>
+</div>
 
 </div>
+
 </div>
 
-<script>
+</div>
 
-function downloadPDF(){
-const content = localStorage.getItem("resumeOutput");
-const win = window.open("", "", "width=800,height=900");
-win.document.write(content);
-win.document.close();
-win.print();
-}
-
-function downloadWord(){
-const content = localStorage.getItem("resumeOutput");
-const blob = new Blob([content], {type:"application/msword"});
-const link = document.createElement("a");
-link.href = URL.createObjectURL(blob);
-link.download = "resume.doc";
-link.click();
-}
-
-</script>
+<script src="resume-generator.js"></script>
 
 </body>
 </html>
