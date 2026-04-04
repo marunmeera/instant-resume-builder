@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <title>Generating Resume</title>
 <link rel="stylesheet" href="style.css">
+<script src="resume-template.js"></script>
 </head>
 
 <body>
 
 <div class="container">
 <div class="card">
-
-<h2 id="loadingText">Generating Resume</h2>
-<p>Please wait...</p>
-
+<h2 id="loading">Generating Resume...</h2>
 </div>
 </div>
 
@@ -24,45 +21,21 @@ alert("Session expired");
 window.location.href = "index.html";
 }
 
-// ANIMATION
 let dots = 0;
-setInterval(() => {
-dots = (dots + 1) % 4;
-document.getElementById("loadingText").innerText = "Generating Resume" + ".".repeat(dots);
-}, 500);
-
-async function generate(){
-
-try {
+setInterval(()=>{
+dots=(dots+1)%4;
+document.getElementById("loading").innerText = "Generating Resume" + ".".repeat(dots);
+},500);
 
 const data = JSON.parse(localStorage.getItem("resumeData"));
 
-const res = await fetch("https://resume-ai-api-tg2p.onrender.com/generate", {
-method: "POST",
-headers: {"Content-Type":"application/json"},
-body: JSON.stringify(data)
-});
+const html = generateResumeHTML(data);
 
-const result = await res.json();
+localStorage.setItem("resumeOutput", html);
 
-if (!result || !result.resume) {
-throw new Error("Invalid API response");
-}
-
-localStorage.setItem("resumeOutput", result.resume);
-
-window.location.replace("download.html");
-
-} catch (err) {
-
-alert("Error generating resume. Try again.");
-window.location.href = "index.html";
-
-}
-
-}
-
-generate();
+setTimeout(()=>{
+window.location.href="download.html";
+},1000);
 
 </script>
 
