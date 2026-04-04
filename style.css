@@ -4,30 +4,58 @@ background: #f5f7fb;
 margin: 0;
 }
 
-header {
+/* HERO */
+
+.hero {
 text-align: center;
-padding: 40px 20px;
+padding: 60px 20px;
+background: linear-gradient(to right, #0b3d91, #2563eb);
+color: white;
 }
 
-h1 {
-color: #0b3d91;
-font-size: 32px;
+.hero h1 {
+font-size: 34px;
+margin-bottom: 10px;
 }
+
+.hero p {
+font-size: 16px;
+opacity: 0.9;
+}
+
+/* BADGES */
+
+.badges {
+margin-top: 20px;
+}
+
+.badges span {
+background: rgba(255,255,255,0.2);
+padding: 8px 12px;
+margin: 5px;
+border-radius: 20px;
+font-size: 12px;
+display: inline-block;
+}
+
+/* CONTAINER */
 
 .container {
 display: flex;
 justify-content: center;
-padding: 20px;
+padding: 40px 20px;
 }
 
 .card {
-width: 95%;
+width: 100%;
 max-width: 1000px;
 padding: 30px;
-border-radius: 12px;
 background: white;
+border-radius: 12px;
 box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
+
+/* INPUTS */
 
 input, textarea {
 width: 100%;
@@ -38,6 +66,8 @@ border-radius: 8px;
 font-size: 14px;
 }
 
+/* TITLES */
+
 h3 {
 display: flex;
 justify-content: space-between;
@@ -45,21 +75,26 @@ align-items: center;
 margin-top: 25px;
 }
 
+/* HINT */
+
 .hint {
 font-size: 12px;
 color: gray;
 margin-bottom: 5px;
 }
 
+/* ADD BUTTON */
+
 .add-btn {
-background: #0b3d91;
+background: #2563eb;
 color: white;
 border: none;
-padding: 5px 10px;
-border-radius: 5px;
+padding: 6px 12px;
+border-radius: 6px;
 cursor: pointer;
-font-size: 12px;
 }
+
+/* BLOCK */
 
 .block {
 border: 1px solid #e5e7eb;
@@ -69,10 +104,7 @@ border-radius: 8px;
 background: #fafafa;
 }
 
-.block input,
-.block textarea {
-margin-bottom: 8px;
-}
+/* REMOVE */
 
 .remove-btn {
 background: #ff4d4f;
@@ -82,4 +114,19 @@ padding: 4px 8px;
 cursor: pointer;
 float: right;
 border-radius: 5px;
+}
+
+/* CTA */
+
+.cta-box {
+text-align: center;
+margin-top: 20px;
+padding: 20px;
+background: #f0f4ff;
+border-radius: 10px;
+}
+
+.cta-text {
+font-weight: bold;
+margin-bottom: 10px;
 }
