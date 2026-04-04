@@ -28,15 +28,27 @@
 <input id="email">
 
 <!-- ACADEMICS -->
-<h3>+ Academics (Latest First) <button onclick="addAcademic()">+</button></h3>
+<h3>
++ Academics (Latest First)
+<button class="add-btn" onclick="addAcademic()">+</button>
+</h3>
+<p class="hint">Click "+" to add another entry</p>
 <div id="academics"></div>
 
 <!-- EXPERIENCE -->
-<h3>+ Work Experience (Latest First) <button onclick="addExperience()">+</button></h3>
+<h3>
++ Work Experience (Latest First)
+<button class="add-btn" onclick="addExperience()">+</button>
+</h3>
+<p class="hint">Click "+" to add another entry</p>
 <div id="experience"></div>
 
 <!-- SKILLS -->
-<h3>+ Skills <button onclick="addSkill()">+</button></h3>
+<h3>
++ Skills
+<button class="add-btn" onclick="addSkill()">+</button>
+</h3>
+<p class="hint">Click "+" to add another entry</p>
 <div id="skillsSection"></div>
 
 <!-- PROJECTS -->
@@ -44,11 +56,16 @@
 <textarea id="projects" placeholder="Enter the list of projects per line you completed in school, college, etc."></textarea>
 
 <!-- CUSTOM -->
-<h3>+ Create Own Section <button onclick="addCustom()">+</button></h3>
+<h3>
++ Create Own Section
+<button class="add-btn" onclick="addCustom()">+</button>
+</h3>
+<p class="hint">Click "+" to add another section</p>
 <div id="customSection"></div>
 
 <br>
 
+<!-- RAZORPAY BUTTON -->
 <div onclick="preparePayment()">
 <form>
 <script src="https://checkout.razorpay.com/v1/payment-button.js"
