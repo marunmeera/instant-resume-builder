@@ -4,11 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Instant Resume Builder</title>
-
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -18,36 +15,8 @@
 <p>Create a job-winning resume in 2 minutes</p>
 </header>
 
-<!-- STYLE SELECTION -->
-
-<div class="style-container">
-
-<div class="style-card selected" onclick="selectStyle('classic', this)">
-<h3>Classic</h3>
-<p>ATS Friendly</p>
-<img src="classic.jpg">
-</div>
-
-<div class="style-card" onclick="selectStyle('professional', this)">
-<h3>Professional</h3>
-<p>Balanced Modern</p>
-<img src="professional.jpg">
-</div>
-
-<div class="style-card" onclick="selectStyle('elite', this)">
-<h3>Elite</h3>
-<p>Premium Executive</p>
-<img src="elite.jpg">
-</div>
-
-</div>
-
-<!-- FORM -->
-
 <div class="container">
 <div class="card">
-
-<h2>Enter Your Details</h2>
 
 <label>Full Name</label>
 <input id="name">
@@ -58,33 +27,36 @@
 <label>Email</label>
 <input id="email">
 
-<h3>Academics (Latest First)</h3>
-
+<!-- ACADEMICS -->
+<h3>+ Academics (Latest First) <button onclick="addAcademic()">+</button></h3>
 <div id="academics"></div>
 
-<button onclick="addAcademic()">+ Add Academic</button>
-
-<h3>Work Experience (Latest First)</h3>
-
+<!-- EXPERIENCE -->
+<h3>+ Work Experience (Latest First) <button onclick="addExperience()">+</button></h3>
 <div id="experience"></div>
 
-<button onclick="addExperience()">+ Add Experience</button>
+<!-- SKILLS -->
+<h3>+ Skills <button onclick="addSkill()">+</button></h3>
+<div id="skillsSection"></div>
 
-<h3>Skills</h3>
-<textarea id="skills"></textarea>
+<!-- PROJECTS -->
+<h3>Projects</h3>
+<textarea id="projects" placeholder="Enter the list of projects per line you completed in school, college, etc."></textarea>
 
-<h3>Projects (Optional)</h3>
-<textarea id="projects"></textarea>
+<!-- CUSTOM -->
+<h3>+ Create Own Section <button onclick="addCustom()">+</button></h3>
+<div id="customSection"></div>
 
 <br>
 
-<button class="btn19" onclick="startPayment(19)">
-Generate PDF ₹19
-</button>
-
-<button class="btn29" onclick="startPayment(29)">
-Editable Resume ₹29
-</button>
+<div onclick="preparePayment()">
+<form>
+<script src="https://checkout.razorpay.com/v1/payment-button.js"
+data-payment_button_id="pl_SZKlB7ME0Iami0"
+async>
+</script>
+</form>
+</div>
 
 </div>
 </div>
