@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <title>Download Resume</title>
 <link rel="stylesheet" href="style.css">
@@ -21,18 +20,18 @@
 
 <script>
 
-function downloadPDF() {
+function downloadPDF(){
 const content = localStorage.getItem("resumeOutput");
-const blob = new Blob([content], { type: "application/pdf" });
+const blob = new Blob([content], {type:"application/pdf"});
 const link = document.createElement("a");
 link.href = URL.createObjectURL(blob);
 link.download = "resume.pdf";
 link.click();
 }
 
-function downloadWord() {
+function downloadWord(){
 const content = localStorage.getItem("resumeOutput");
-const blob = new Blob([content], { type: "application/msword" });
+const blob = new Blob([content], {type:"application/msword"});
 const link = document.createElement("a");
 link.href = URL.createObjectURL(blob);
 link.download = "resume.doc";
