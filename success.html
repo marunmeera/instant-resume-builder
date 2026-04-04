@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <title>Generating Resume</title>
 <link rel="stylesheet" href="style.css">
@@ -12,14 +11,19 @@
 <div class="card">
 
 <h2>Generating Resume...</h2>
-<p>Please wait, do not refresh</p>
+<p>Please wait...</p>
 
 </div>
 </div>
 
 <script>
 
-async function generate() {
+if (!localStorage.getItem("resumeData")) {
+alert("Session expired");
+window.location.href = "index.html";
+}
+
+async function generate(){
 
 const data = JSON.parse(localStorage.getItem("resumeData"));
 
@@ -34,6 +38,7 @@ const result = await res.json();
 localStorage.setItem("resumeOutput", result.resume);
 
 window.location.href = "download.html";
+
 }
 
 generate();
