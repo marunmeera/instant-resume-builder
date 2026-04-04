@@ -4,18 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Instant Resume Builder</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
+<!-- HERO -->
 <div class="hero">
-<h1>Build a Job-Winning Resume in 2 Minutes</h1>
-<p>ATS-friendly | AI-powered | Instant download</p>
+<h1>Get a Job-Winning Resume in 2 Minutes</h1>
+<p>No design skills needed • ATS-friendly • AI-powered</p>
+
+<div class="badges">
+<span>✔ Used by 1,000+ job seekers</span>
+<span>✔ Instant Download</span>
+<span>✔ No Signup Required</span>
 </div>
 
+</div>
+
+
 <div class="container">
+
 <div class="card">
+
+<!-- FORM -->
 
 <label>Full Name</label>
 <input id="name">
@@ -26,31 +40,88 @@
 <label>Email</label>
 <input id="email">
 
-<h3>Academics <button onclick="addAcademic()" class="add-btn">+</button></h3>
+
+<h3>Education 
+<button onclick="addAcademic()" class="add-btn">+</button>
+</h3>
 <div id="academics"></div>
 
-<h3>Experience <button onclick="addExperience()" class="add-btn">+</button></h3>
+
+<h3>Work Experience 
+<button onclick="addExperience()" class="add-btn">+</button>
+</h3>
 <div id="experience"></div>
 
-<h3>Skills <button onclick="addSkill()" class="add-btn">+</button></h3>
+
+<h3>Skills 
+<button onclick="addSkill()" class="add-btn">+</button>
+</h3>
 <div id="skillsSection"></div>
+
 
 <h3>Projects</h3>
 <textarea id="projects"></textarea>
 
-<br>
 
-<div onclick="preparePayment()">
-<form>
+<!-- 🔥 VALUE SECTION -->
+<div class="value-box">
+<p>💡 Your resume will be:</p>
+<ul>
+<li>✔ ATS-friendly (passes company filters)</li>
+<li>✔ Professionally formatted</li>
+<li>✔ Optimized for recruiters</li>
+</ul>
+</div>
+
+
+<!-- 🔥 PAYMENT SECTION -->
+<div class="payment-section">
+
+<div class="pay-box highlight">
+<p>🔥 Most Popular</p>
+<h3>Editable Resume</h3>
+<p class="price">₹29</p>
+<ul>
+<li>✔ Word format</li>
+<li>✔ Easy to edit</li>
+<li>✔ Lifetime use</li>
+</ul>
+
+<form onsubmit="preparePayment()">
+<script src="https://checkout.razorpay.com/v1/payment-button.js"
+data-payment_button_id="pl_SZS6gp4g5DdYuW"
+async></script>
+</form>
+
+</div>
+
+
+<div class="pay-box">
+<h3>PDF Resume</h3>
+<p class="price">₹19</p>
+<ul>
+<li>✔ Ready to send</li>
+<li>✔ Clean format</li>
+</ul>
+
+<form onsubmit="preparePayment()">
 <script src="https://checkout.razorpay.com/v1/payment-button.js"
 data-payment_button_id="pl_SZKlB7ME0Iami0"
 async></script>
 </form>
+
 </div>
 
 </div>
+
+<!-- 🔥 TRUST -->
+<p class="trust">🔒 Secure payment powered by Razorpay</p>
+
+</div>
+
 </div>
 
 <script src="resume-generator.js"></script>
+
 </body>
 </html>
