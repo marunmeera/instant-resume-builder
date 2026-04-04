@@ -11,25 +11,41 @@
 
 <body>
 
-<!-- HERO -->
+<!-- 🔥 NAVBAR -->
+<div class="navbar">
+<div class="logo">IRB</div>
+<div class="nav-right">
+<span>AI Resume Builder</span>
+</div>
+</div>
+
+
+<!-- 🔥 HERO -->
 <div class="hero">
-<h1>Get a Job-Winning Resume in 2 Minutes</h1>
+
+<h1>Build a Job-Winning Resume in 2 Minutes</h1>
+
 <p>No design skills needed • ATS-friendly • AI-powered</p>
 
-<div class="badges">
-<span>✔ Used by 1,000+ job seekers</span>
+<button class="cta" onclick="scrollToForm()">Start Building →</button>
+
+</div>
+
+
+<!-- 🔥 TRUST STRIP -->
+<div class="trust-strip">
+<span>✔ Trusted by 1,000+ users</span>
 <span>✔ Instant Download</span>
 <span>✔ No Signup Required</span>
 </div>
 
-</div>
 
-
+<!-- 🔥 MAIN FORM -->
 <div class="container">
 
-<div class="card">
+<div class="card" id="formSection">
 
-<!-- FORM -->
+<h2>Create Your Resume</h2>
 
 <label>Full Name</label>
 <input id="name">
@@ -41,21 +57,15 @@
 <input id="email">
 
 
-<h3>Education 
-<button onclick="addAcademic()" class="add-btn">+</button>
-</h3>
+<h3>Education <button onclick="addAcademic()" class="add-btn">+</button></h3>
 <div id="academics"></div>
 
 
-<h3>Work Experience 
-<button onclick="addExperience()" class="add-btn">+</button>
-</h3>
+<h3>Work Experience <button onclick="addExperience()" class="add-btn">+</button></h3>
 <div id="experience"></div>
 
 
-<h3>Skills 
-<button onclick="addSkill()" class="add-btn">+</button>
-</h3>
+<h3>Skills <button onclick="addSkill()" class="add-btn">+</button></h3>
 <div id="skillsSection"></div>
 
 
@@ -63,27 +73,28 @@
 <textarea id="projects"></textarea>
 
 
-<!-- 🔥 VALUE SECTION -->
+<!-- 🔥 VALUE BOX -->
 <div class="value-box">
 <p>💡 Your resume will be:</p>
 <ul>
-<li>✔ ATS-friendly (passes company filters)</li>
-<li>✔ Professionally formatted</li>
-<li>✔ Optimized for recruiters</li>
+<li>✔ ATS-friendly</li>
+<li>✔ Recruiter-approved format</li>
+<li>✔ Clean & professional</li>
 </ul>
 </div>
 
 
-<!-- 🔥 PAYMENT SECTION -->
-<div class="payment-section">
+<!-- 🔥 PRICING -->
+<div class="pricing">
 
-<div class="pay-box highlight">
-<p>🔥 Most Popular</p>
+<div class="price-card highlight">
+<p class="tag">Most Popular</p>
 <h3>Editable Resume</h3>
 <p class="price">₹29</p>
+
 <ul>
 <li>✔ Word format</li>
-<li>✔ Easy to edit</li>
+<li>✔ Easy editing</li>
 <li>✔ Lifetime use</li>
 </ul>
 
@@ -96,9 +107,10 @@ async></script>
 </div>
 
 
-<div class="pay-box">
+<div class="price-card">
 <h3>PDF Resume</h3>
 <p class="price">₹19</p>
+
 <ul>
 <li>✔ Ready to send</li>
 <li>✔ Clean format</li>
@@ -114,14 +126,26 @@ async></script>
 
 </div>
 
-<!-- 🔥 TRUST -->
-<p class="trust">🔒 Secure payment powered by Razorpay</p>
+<p class="trust">🔒 Secure payment via Razorpay</p>
 
 </div>
 
 </div>
+
+
+<!-- 🔥 FOOTER -->
+<div class="footer">
+<p>© 2026 Instant Resume Builder</p>
+</div>
+
 
 <script src="resume-generator.js"></script>
+
+<script>
+function scrollToForm(){
+document.getElementById("formSection").scrollIntoView({behavior:"smooth"});
+}
+</script>
 
 </body>
 </html>
