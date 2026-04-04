@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script src="resume-template.js"></script>
+
+<script>
+const data = JSON.parse(localStorage.getItem("resumeData"));
+const html = generateResumeHTML(data);
+localStorage.setItem("resumeOutput", html);
+window.location.href="download.html";
+</script>
+
+</body>
+</html>
