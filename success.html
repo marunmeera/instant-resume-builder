@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <title>Generating Resume</title>
 <link rel="stylesheet" href="style.css">
@@ -10,7 +11,7 @@
 <div class="container">
 <div class="card">
 
-<h2>Generating Resume...</h2>
+<h2 id="loadingText">Generating Resume</h2>
 <p>Please wait...</p>
 
 </div>
@@ -23,7 +24,16 @@ alert("Session expired");
 window.location.href = "index.html";
 }
 
+// ANIMATION
+let dots = 0;
+setInterval(() => {
+dots = (dots + 1) % 4;
+document.getElementById("loadingText").innerText = "Generating Resume" + ".".repeat(dots);
+}, 500);
+
 async function generate(){
+
+try {
 
 const data = JSON.parse(localStorage.getItem("resumeData"));
 
@@ -35,9 +45,20 @@ body: JSON.stringify(data)
 
 const result = await res.json();
 
+if (!result || !result.resume) {
+throw new Error("Invalid API response");
+}
+
 localStorage.setItem("resumeOutput", result.resume);
 
-window.location.href = "download.html";
+window.location.replace("download.html");
+
+} catch (err) {
+
+alert("Error generating resume. Try again.");
+window.location.href = "index.html";
+
+}
 
 }
 
