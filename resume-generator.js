@@ -1,5 +1,5 @@
 function removeBlock(btn){
-btn.parentElement.remove();
+btn.closest(".block").remove();
 }
 
 // ACADEMIC
@@ -50,7 +50,7 @@ div.innerHTML = `
 document.getElementById("skillsSection").prepend(div);
 }
 
-// CUSTOM
+// CUSTOM SECTION
 function addCustom(){
 const div = document.createElement("div");
 div.className = "block";
@@ -65,7 +65,7 @@ div.innerHTML = `
 document.getElementById("customSection").prepend(div);
 }
 
-// SAVE BEFORE PAYMENT
+// SAVE DATA BEFORE PAYMENT
 function preparePayment(){
 
 const data = {
@@ -77,3 +77,9 @@ projects: document.getElementById("projects").value
 
 localStorage.setItem("resumeData", JSON.stringify(data));
 }
+
+// DEFAULT LOAD
+window.onload = () => {
+addAcademic();
+addExperience();
+};
