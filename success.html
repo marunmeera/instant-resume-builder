@@ -3,14 +3,13 @@
 <head>
 <title>Generating Resume</title>
 <link rel="stylesheet" href="style.css">
-<script src="resume-template.js"></script>
 </head>
 
 <body>
 
 <div class="container">
 <div class="card">
-<h2 id="loading">Generating Resume...</h2>
+<h2 id="loading">Generating AI Resume...</h2>
 </div>
 </div>
 
@@ -24,18 +23,39 @@ window.location.href = "index.html";
 let dots = 0;
 setInterval(()=>{
 dots=(dots+1)%4;
-document.getElementById("loading").innerText = "Generating Resume" + ".".repeat(dots);
+document.getElementById("loading").innerText =
+"Generating AI Resume" + ".".repeat(dots);
 },500);
+
+async function generate(){
+
+try{
 
 const data = JSON.parse(localStorage.getItem("resumeData"));
 
-const html = generateResumeHTML(data);
+const res = await fetch("https://resume-ai-api-tg2p.onrender.com/generate",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(data)
+});
 
-localStorage.setItem("resumeOutput", html);
+const result = await res.json();
 
-setTimeout(()=>{
+if(!result.success || !result.html) throw new Error();
+
+localStorage.setItem("resumeOutput", result.html);
+
 window.location.href="download.html";
-},1000);
+
+}catch{
+
+window.location.href="fallback.html";
+
+}
+
+}
+
+generate();
 
 </script>
 
