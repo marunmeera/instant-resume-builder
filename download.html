@@ -3,83 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instant Resume Builder</title>
-
+<title>Your Resume — Instant Resume Builder</title>
 <link rel="stylesheet" href="style.css">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
 
-<div class="hero">
-<h1>Build a Job-Winning Resume in 2 Minutes</h1>
-<p>ATS-friendly | AI-powered | Instant download</p>
+<div class="navbar">
+  <div class="logo">Instant Resume Builder</div>
 </div>
 
 <div class="container">
+  <div class="result-card">
+    <h2>Your resume is ready 🎉</h2>
+    <div id="resumePreview"></div>
 
-<div class="card">
+    <div class="download-actions" id="downloadActions"></div>
 
-<label>Full Name</label>
-<input id="name">
-
-<label>Mobile</label>
-<input id="mobile">
-
-<label>Email</label>
-<input id="email">
-
-
-<h3>Education 
-<button onclick="addAcademic()" class="add-btn">+</button>
-</h3>
-<div id="academics"></div>
-
-
-<h3>Work Experience 
-<button onclick="addExperience()" class="add-btn">+</button>
-</h3>
-<div id="experience"></div>
-
-
-<h3>Skills 
-<button onclick="addSkill()" class="add-btn">+</button>
-</h3>
-<div id="skillsSection"></div>
-
-
-<h3>Projects</h3>
-<textarea id="projects"></textarea>
-
-
-<!-- 🔥 PAYMENT SECTION -->
-<div class="payment-section">
-
-<div class="pay-box">
-<p>PDF Resume</p>
-<form onsubmit="preparePayment()">
-<script src="https://checkout.razorpay.com/v1/payment-button.js"
-data-payment_button_id="pl_SZKlB7ME0Iami0"
-async></script>
-</form>
+    <p class="trust" style="margin-top:20px;">
+      <a href="index.html">← Build another resume</a>
+    </p>
+  </div>
 </div>
 
-<div class="pay-box">
-<p>Editable Resume (Word)</p>
-<form onsubmit="preparePayment()">
-<script src="https://checkout.razorpay.com/v1/payment-button.js"
-data-payment_button_id="pl_SZS6gp4g5DdYuW"
-async></script>
-</form>
-</div>
+<script>
+const resumeOutput = localStorage.getItem("resumeOutput");
+const paidType = (JSON.parse(localStorage.getItem("lastPaidType") || '"pdf"'));
 
-</div>
+if (!resumeOutput) {
+  window.location.href = "index.html";
+}
 
-</div>
+// Extract the <style> and <body> content from the generated full-page HTML
+const parser = new DOMParser();
+const doc = parser.parseFromString(resumeOutput, "text/html");
+const styleTag = doc.querySelector("style");
+const bodyContent = doc.body ? doc.body.innerHTML : resumeOutput;
 
-</div>
+document.getElementById("resumePreview").innerHTML =
+  (styleTag ? styleTag.outerHTML : "") + bodyContent;
 
-<script src="resume-generator.js"></script>
+// Show only the download button matching what was paid for
+const actions = document.getElementById("downloadActions");
+if (paidType === "word") {
+  actions.innerHTML = `<button class="pay-btn" onclick="downloadWord()">⬇ Download Word (.doc)</button>`;
+} else {
+  actions.innerHTML = `<button class="pay-btn" onclick="downloadPDF()">⬇ Download PDF</button>`;
+}
+
+function downloadPDF(){
+  const el = document.getElementById("resumePreview");
+  html2pdf().set({
+    margin: 10,
+    filename: "resume.pdf",
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: "pt", format: "a4", orientation: "portrait" }
+  }).from(el).save();
+}
+
+function downloadWord(){
+  const preHtml = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+    <head><meta charset='utf-8'><title>Resume</title></head><body>`;
+  const postHtml = "</body></html>";
+  const html = preHtml + document.getElementById("resumePreview").innerHTML + postHtml;
+  const blob = new Blob(['\ufeff', html], { type: "application/msword" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "resume.doc";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+</script>
 
 </body>
 </html>

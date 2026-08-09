@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generating Resume</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -8,55 +10,53 @@
 <body>
 
 <div class="container">
-<div class="card">
-<h2 id="loading">Generating AI Resume...</h2>
-</div>
+  <div class="card loading-box">
+    <h2 id="loading">Generating AI Resume…</h2>
+    <p id="statusMsg" style="color:#666;font-size:13px;"></p>
+  </div>
 </div>
 
 <script>
+const resumeData = JSON.parse(localStorage.getItem("resumeData") || "null");
+const paymentInfo = JSON.parse(localStorage.getItem("paymentInfo") || "null");
 
-if (!localStorage.getItem("resumeData")) {
-alert("Session expired");
-window.location.href = "index.html";
+// No valid payment proof present — do not allow generation
+if (!resumeData || !paymentInfo || !paymentInfo.razorpay_payment_id || !paymentInfo.razorpay_signature) {
+  document.getElementById("statusMsg").textContent = "No valid payment found. Redirecting…";
+  setTimeout(() => window.location.href = "index.html", 1500);
+} else {
+  let dots = 0;
+  const dotTimer = setInterval(()=>{
+    dots = (dots+1) % 4;
+    document.getElementById("loading").textContent = "Generating AI Resume" + ".".repeat(dots);
+  }, 500);
+
+  const API_BASE = "https://resume-ai-api-tg2p.onrender.com";
+
+  fetch(`${API_BASE}/generate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...resumeData, payment: paymentInfo })
+  })
+    .then(res => res.json())
+    .then(result => {
+      clearInterval(dotTimer);
+      if (!result.success || !result.html) throw new Error(result.error || "generation_failed");
+      localStorage.setItem("resumeOutput", result.html);
+      localStorage.setItem("lastPaidType", JSON.stringify(paymentInfo.type));
+      localStorage.removeItem("paymentInfo"); // one-time use, generation already consumed it
+      window.location.href = "download.html";
+    })
+    .catch(err => {
+      clearInterval(dotTimer);
+      if (String(err.message).includes("payment_invalid")) {
+        document.getElementById("statusMsg").textContent = "Payment could not be verified. Please contact support.";
+      } else {
+        // AI generation failed for a verified, paid user — fall back to local template so they still get their resume
+        window.location.href = "fallback.html";
+      }
+    });
 }
-
-let dots = 0;
-setInterval(()=>{
-dots=(dots+1)%4;
-document.getElementById("loading").innerText =
-"Generating AI Resume" + ".".repeat(dots);
-},500);
-
-async function generate(){
-
-try{
-
-const data = JSON.parse(localStorage.getItem("resumeData"));
-
-const res = await fetch("https://resume-ai-api-tg2p.onrender.com/generate",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(data)
-});
-
-const result = await res.json();
-
-if(!result.success || !result.html) throw new Error();
-
-localStorage.setItem("resumeOutput", result.html);
-
-window.location.href="download.html";
-
-}catch{
-
-window.location.href="fallback.html";
-
-}
-
-}
-
-generate();
-
 </script>
 
 </body>

@@ -1,177 +1,241 @@
 body {
-font-family: 'Segoe UI', Arial, sans-serif;
-margin: 0;
-background: #f7f9fc;
-color: #111;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  background: #f7f9fc;
+  color: #111;
 }
 
 /* NAVBAR */
 .navbar {
-display: flex;
-justify-content: space-between;
-padding: 12px 25px;
-background: white;
-border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 25px;
+  background: white;
+  border-bottom: 1px solid #eee;
 }
 
 .logo {
-font-weight: bold;
-color: #0b3d91;
-font-size: 14px;
+  font-weight: bold;
+  color: #0b3d91;
+  font-size: 14px;
 }
 
-/* HERO (FIXED SPACING) */
+/* HERO */
 .hero {
-text-align: center;
-padding: 50px 20px; /* reduced from 80px */
-background: linear-gradient(135deg,#0b3d91,#2563eb);
-color: white;
+  text-align: center;
+  padding: 50px 20px;
+  background: linear-gradient(135deg,#0b3d91,#2563eb);
+  color: white;
 }
-
 .hero h1 {
-font-size: 30px;
-margin-bottom: 8px;
+  font-size: 30px;
+  margin-bottom: 8px;
 }
 
 .hero p {
-margin: 0;
-opacity: 0.9;
+  margin: 0;
+  opacity: 0.9;
 }
 
 .cta {
-margin-top: 15px;
-padding: 10px 20px;
-background: white;
-color: #0b3d91;
-border: none;
-border-radius: 6px;
-cursor: pointer;
-font-weight: bold;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: white;
+  color: #0b3d91;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-/* TRUST STRIP (TIGHTENED) */
+/* TRUST STRIP */
 .trust-strip {
-display: flex;
-justify-content: center;
-gap: 20px;
-padding: 10px;
-background: #eef4ff;
-font-size: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  background: #eef4ff;
+  font-size: 12px;
 }
 
 /* MAIN */
 .container {
-display: flex;
-justify-content: center;
-padding: 25px 15px; /* reduced spacing */
+  display: flex;
+  justify-content: center;
+  padding: 25px 15px;
 }
 
-/* CARD (WIDER + CLEAN) */
+/* CARD */
 .card {
-width: 100%;
-max-width: 950px; /* increased */
-background: white;
-padding: 25px;
-border-radius: 12px;
-box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 950px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
 }
 
 /* INPUTS */
 input, textarea {
-width: 100%;
-padding: 12px;
-margin-bottom: 12px;
-border-radius: 6px;
-border: 1px solid #ccc;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 14px;
 }
 
 /* BLOCK */
 .block {
-border: 1px solid #eee;
-padding: 12px;
-border-radius: 8px;
-margin-bottom: 10px;
-background: #fafafa;
-position: relative;
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: #fafafa;
+  position: relative;
 }
 
 /* BUTTONS */
 .add-btn {
-background: #0b3d91;
-color: white;
-border: none;
-padding: 3px 8px;
-margin-left: 6px;
-cursor: pointer;
-border-radius: 4px;
+  background: #0b3d91;
+  color: white;
+  border: none;
+  padding: 3px 8px;
+  margin-left: 6px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .remove-btn {
-position: absolute;
-right: 8px;
-top: 8px;
-background: red;
-color: white;
-border: none;
-padding: 3px 7px;
-cursor: pointer;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: red;
+  color: white;
+  border: none;
+  padding: 3px 7px;
+  cursor: pointer;
 }
 
 /* VALUE BOX */
 .value-box {
-background: #eef4ff;
-padding: 12px;
-border-radius: 8px;
-margin-top: 10px;
+  background: #eef4ff;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
 /* PRICING */
 .pricing {
-display: flex;
-gap: 15px;
-margin-top: 20px;
-flex-wrap: wrap;
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .price-card {
-flex: 1;
-min-width: 260px;
-padding: 18px;
-border-radius: 10px;
-border: 1px solid #ddd;
-text-align: center;
-background: #fafbff;
+  flex: 1;
+  min-width: 260px;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  background: #fafbff;
 }
 
 .highlight {
-border: 2px solid #0b3d91;
-background: #eef4ff;
+  border: 2px solid #0b3d91;
+  background: #eef4ff;
 }
 
 .tag {
-color: #0b3d91;
-font-weight: bold;
-font-size: 11px;
+  color: #0b3d91;
+  font-weight: bold;
+  font-size: 11px;
 }
 
 .price {
-font-size: 24px;
-font-weight: bold;
-margin: 8px 0;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.pay-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0b3d91;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.pay-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* TRUST */
 .trust {
-text-align: center;
-margin-top: 12px;
-font-size: 11px;
-color: #666;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 11px;
+  color: #666;
+}
+
+/* ERROR */
+.error-msg {
+  background: #fde8e8;
+  color: #a11;
+  border: 1px solid #f3b8b8;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-top: 12px;
 }
 
 /* FOOTER */
 .footer {
-text-align: center;
-padding: 15px;
-font-size: 11px;
-color: #777;
+  text-align: center;
+  padding: 15px;
+  font-size: 11px;
+  color: #777;
+}
+
+/* ---- RESULT / DOWNLOAD PAGE ---- */
+.result-card {
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  margin: 0 auto;
+}
+
+#resumePreview {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 16px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fff;
+}
+
+.download-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.download-actions .pay-btn {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.loading-box {
+  text-align: center;
+  padding: 60px 20px;
 }

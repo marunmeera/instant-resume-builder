@@ -5,10 +5,20 @@
 <script src="resume-template.js"></script>
 
 <script>
-const data = JSON.parse(localStorage.getItem("resumeData"));
-const html = generateResumeHTML(data);
-localStorage.setItem("resumeOutput", html);
-window.location.href="download.html";
+const data = JSON.parse(localStorage.getItem("resumeData") || "null");
+const paymentInfo = JSON.parse(localStorage.getItem("paymentInfo") || "null");
+
+if (!data) {
+  window.location.href = "index.html";
+} else {
+  const html = generateResumeHTML(data);
+  localStorage.setItem("resumeOutput", html);
+  if (paymentInfo && paymentInfo.type) {
+    localStorage.setItem("lastPaidType", JSON.stringify(paymentInfo.type));
+  }
+  localStorage.removeItem("paymentInfo");
+  window.location.href = "download.html";
+}
 </script>
 
 </body>
