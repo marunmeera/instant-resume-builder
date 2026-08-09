@@ -7,78 +7,58 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-
 <body>
 
-<div class="navbar">
-  <div class="logo">Instant Resume Builder</div>
-</div>
+<header class="top"><div class="brand"><h1>Instant Resume Builder</h1></div></header>
 
-<div class="container">
+<div class="shell">
   <div class="result-card">
     <h2>Your resume is ready 🎉</h2>
     <div id="resumePreview"></div>
-
     <div class="download-actions" id="downloadActions"></div>
-
-    <p class="trust" style="margin-top:20px;">
-      <a href="index.html">← Build another resume</a>
-    </p>
+    <p class="trust" style="margin-top:18px;"><a href="index.html">← Build another resume</a></p>
   </div>
 </div>
 
 <script>
 const resumeOutput = localStorage.getItem("resumeOutput");
-const paidType = (JSON.parse(localStorage.getItem("lastPaidType") || '"pdf"'));
+const paidType = JSON.parse(localStorage.getItem("lastPaidType") || '"basic"');
 
-if (!resumeOutput) {
-  window.location.href = "index.html";
-}
+if (!resumeOutput) window.location.href = "index.html";
 
-// Extract the <style> and <body> content from the generated full-page HTML
 const parser = new DOMParser();
 const doc = parser.parseFromString(resumeOutput, "text/html");
 const styleTag = doc.querySelector("style");
 const bodyContent = doc.body ? doc.body.innerHTML : resumeOutput;
+document.getElementById("resumePreview").innerHTML = (styleTag ? styleTag.outerHTML : "") + bodyContent;
 
-document.getElementById("resumePreview").innerHTML =
-  (styleTag ? styleTag.outerHTML : "") + bodyContent;
-
-// Show only the download button matching what was paid for
 const actions = document.getElementById("downloadActions");
-if (paidType === "word") {
-  actions.innerHTML = `<button class="pay-btn" onclick="downloadWord()">⬇ Download Word (.doc)</button>`;
-} else {
-  actions.innerHTML = `<button class="pay-btn" onclick="downloadPDF()">⬇ Download PDF</button>`;
+let buttonsHtml = `<button class="pay-btn" onclick="downloadPDF()">⬇ Download PDF</button>`;
+if (paidType === "moderate" || paidType === "experienced") {
+  buttonsHtml += `<button class="pay-btn" onclick="downloadWord()">⬇ Download Word (.doc)</button>`;
 }
+actions.innerHTML = buttonsHtml;
 
 function downloadPDF(){
-  const el = document.getElementById("resumePreview");
   html2pdf().set({
-    margin: 10,
-    filename: "resume.pdf",
+    margin: 10, filename: "resume.pdf",
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true },
     jsPDF: { unit: "pt", format: "a4", orientation: "portrait" }
-  }).from(el).save();
+  }).from(document.getElementById("resumePreview")).save();
 }
 
 function downloadWord(){
-  const preHtml = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-    <head><meta charset='utf-8'><title>Resume</title></head><body>`;
+  const preHtml = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Resume</title></head><body>`;
   const postHtml = "</body></html>";
   const html = preHtml + document.getElementById("resumePreview").innerHTML + postHtml;
   const blob = new Blob(['\ufeff', html], { type: "application/msword" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url;
-  a.download = "resume.doc";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  a.href = url; a.download = "resume.doc";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
 </script>
-
 </body>
 </html>

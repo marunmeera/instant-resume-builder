@@ -1,114 +1,157 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instant Resume Builder</title>
+<title>Instant Resume Builder — AI Resume Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-  <div class="logo">Instant Resume Builder</div>
-  <div>AI Resume Builder</div>
-</div>
+<header class="top">
+  <div class="brand">
+    <h1>Instant Resume Builder</h1>
+    <span>AI Resume Builder</span>
+  </div>
+</header>
 
-<!-- HERO -->
-<div class="hero">
-  <h1>Build a Job-Winning Resume in 2 Minutes</h1>
-  <p>No design skills needed • ATS-friendly • AI-powered</p>
-  <button class="cta" onclick="scrollToForm()">Start Building →</button>
-</div>
+<div class="shell">
 
-<!-- TRUST -->
-<div class="trust-strip">
-  <span>✔ Trusted by 1,000+ users</span>
-  <span>✔ Instant Download</span>
-  <span>✔ No Signup Required</span>
-</div>
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-step="0"><span class="num">01</span>Personal</div>
+    <div class="tab" data-step="1"><span class="num">02</span>Education</div>
+    <div class="tab" data-step="2"><span class="num">03</span>Certifications</div>
+    <div class="tab" data-step="3"><span class="num">04</span>Experience</div>
+    <div class="tab" data-step="4"><span class="num">05</span>Get Resume</div>
+  </div>
 
-<!-- FORM -->
-<div class="container">
-  <div class="card" id="formSection">
+  <div class="sheet">
 
-    <h2>Create Your Resume</h2>
+    <!-- STEP 0: PERSONAL -->
+    <div class="step active" data-step="0">
+      <h2>Personal details</h2>
+      <div class="sub">Type things out fully — the AI writes better when it doesn't have to guess what a short form means.</div>
 
-    <label>Full Name</label>
-    <input id="name">
-
-    <label>Mobile</label>
-    <input id="mobile">
-
-    <label>Email</label>
-    <input id="email">
-
-    <h3>Education <button onclick="addAcademic()" class="add-btn">+</button></h3>
-    <div id="academics"></div>
-
-    <h3>Work Experience <button onclick="addExperience()" class="add-btn">+</button></h3>
-    <div id="experience"></div>
-
-    <h3>Skills <button onclick="addSkill()" class="add-btn">+</button></h3>
-    <div id="skillsSection"></div>
-
-    <h3>Projects</h3>
-    <textarea id="projects"></textarea>
-
-    <!-- VALUE -->
-    <div class="value-box">
-      <p>💡 Your resume will be:</p>
-      <ul>
-        <li>✔ ATS-friendly</li>
-        <li>✔ Recruiter-approved</li>
-        <li>✔ Clean & professional</li>
-      </ul>
-    </div>
-
-    <div id="formError"></div>
-
-    <!-- PRICING -->
-    <div class="pricing">
-
-      <div class="price-card highlight">
-        <p class="tag">Most Popular</p>
-        <h3>Editable Resume</h3>
-        <p class="price">₹29</p>
-        <ul>
-          <li>✔ Word format</li>
-          <li>✔ Easy editing</li>
-          <li>✔ Lifetime use</li>
-        </ul>
-        <button class="pay-btn" onclick="startPayment(29,'word',this)">Get Editable Resume →</button>
+      <div class="field">
+        <label>Photo (optional)</label>
+        <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(event)">
+        <div class="hint">A photo isn't recommended for roles screened by ATS software (most corporate/tech jobs in India) — it can sometimes get a resume filtered out before a human ever sees it. Add one only if you know the employer expects it.</div>
+        <img id="photoPreview" style="display:none;max-width:100px;margin-top:8px;border-radius:4px;">
       </div>
 
-      <div class="price-card">
-        <h3>PDF Resume</h3>
-        <p class="price">₹19</p>
-        <ul>
-          <li>✔ Ready to send</li>
-          <li>✔ Clean format</li>
-        </ul>
-        <button class="pay-btn" onclick="startPayment(19,'pdf',this)">Get PDF Resume →</button>
+      <div class="row2">
+        <div class="field">
+          <label>Full Name *</label>
+          <input type="text" id="fullName" placeholder="Enter your full legal name, not initials">
+        </div>
+        <div class="field">
+          <label>Mobile No. *</label>
+          <input type="tel" id="mobile" placeholder="e.g. 98765 43210">
+        </div>
       </div>
-
+      <div class="row2">
+        <div class="field">
+          <label>Email ID *</label>
+          <input type="email" id="email" placeholder="e.g. name@email.com">
+        </div>
+        <div class="field">
+          <label>City / Location</label>
+          <input type="text" id="location" placeholder="Full city name, not a short form">
+        </div>
+      </div>
+      <div class="field">
+        <label>Career objective (optional)</label>
+        <textarea id="objective" placeholder="Write in full sentences — a few lines about what you're looking for"></textarea>
+      </div>
+      <div class="field">
+        <label>Key skills (comma separated)</label>
+        <input type="text" id="skills" placeholder="Write each skill's full name — e.g. 'Microsoft Excel' not 'MS Excel', 'AutoCAD' not 'ACAD'">
+      </div>
+      <div class="field">
+        <label>Projects (optional)</label>
+        <textarea id="projects" placeholder="Describe each project in full — what it was, what you built or did"></textarea>
+      </div>
     </div>
 
-    <p class="trust">🔒 Secure payment via Razorpay</p>
+    <!-- STEP 1: EDUCATION -->
+    <div class="step" data-step="1">
+      <h2>Academic qualifications</h2>
+      <div class="sub">Add each qualification — SSLC, HSC, Diploma, College, and so on.</div>
+      <div id="academicsList"></div>
+      <button class="add-btn" onclick="addAcademic()">+ Add qualification</button>
+    </div>
+
+    <!-- STEP 2: CERTIFICATIONS -->
+    <div class="step" data-step="2">
+      <h2>Certifications</h2>
+      <div class="sub">Optional — skip if none.</div>
+      <div id="certList"></div>
+      <button class="add-btn" onclick="addCertification()">+ Add certification</button>
+    </div>
+
+    <!-- STEP 3: EXPERIENCE -->
+    <div class="step" data-step="3">
+      <h2>Work experience</h2>
+      <div class="sub">Freshers can skip this. Internships and part-time work count.</div>
+      <div id="expList"></div>
+      <button class="add-btn" onclick="addExperience()">+ Add work experience</button>
+    </div>
+
+    <!-- STEP 4: PACKAGE + PAYMENT -->
+    <div class="step" data-step="4">
+      <h2>Choose your resume package</h2>
+      <div class="sub">Each package writes your resume fresh — no two generations are the same.</div>
+
+      <div id="genError"></div>
+
+      <div class="pricing3">
+        <div class="price-card">
+          <h3>Basic</h3>
+          <p class="price">₹19</p>
+          <ul>
+            <li>✔ PDF download</li>
+            <li>✔ Clean, concise resume</li>
+            <li>✔ Good for freshers</li>
+          </ul>
+          <button class="pay-btn" onclick="startPayment(19,'basic',this)">Get Basic →</button>
+        </div>
+        <div class="price-card highlight">
+          <p class="tag">Most Popular</p>
+          <h3>Moderate</h3>
+          <p class="price">₹34</p>
+          <ul>
+            <li>✔ PDF + Word (editable)</li>
+            <li>✔ Standard professional depth</li>
+            <li>✔ Ideal for most job seekers</li>
+          </ul>
+          <button class="pay-btn" onclick="startPayment(34,'moderate',this)">Get Moderate →</button>
+        </div>
+        <div class="price-card">
+          <h3>Experienced</h3>
+          <p class="price">₹49</p>
+          <ul>
+            <li>✔ PDF + Word (editable)</li>
+            <li>✔ Comprehensive, achievement-led</li>
+            <li>✔ Best for 3+ years experience</li>
+          </ul>
+          <button class="pay-btn" onclick="startPayment(49,'experienced',this)">Get Experienced →</button>
+        </div>
+      </div>
+
+      <p class="trust">🔒 Secure payment via Razorpay</p>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" id="backBtn" onclick="changeStep(-1)">← Back</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next →</button>
+    </div>
 
   </div>
 </div>
 
-<!-- Razorpay Checkout (modal-based, no hidden widgets) -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="resume-generator.js"></script>
-
-<script>
-function scrollToForm(){
-  document.getElementById("formSection").scrollIntoView({behavior:"smooth"});
-}
-</script>
-
 </body>
 </html>

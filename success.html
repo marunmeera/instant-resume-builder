@@ -6,33 +6,52 @@
 <title>Generating Resume</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="container">
-  <div class="card loading-box">
-    <h2 id="loading">Generating AI Resume…</h2>
-    <p id="statusMsg" style="color:#666;font-size:13px;"></p>
+<header class="top"><div class="brand"><h1>Instant Resume Builder</h1></div></header>
+
+<div class="shell">
+  <div class="sheet loading-box">
+    <div class="spinner"></div>
+    <h2 id="loading">Generating your resume…</h2>
+    <p id="statusMsg" style="color:var(--muted);font-size:13px;"></p>
+    <div class="tip-box" id="tipBox"></div>
   </div>
 </div>
 
 <script>
+const TIPS = [
+  "💡 Recruiters spend an average of just 6–7 seconds on a first resume scan — your most important line should be at the top.",
+  "💡 Quantified achievements ('increased sales by 18%') are remembered far better than task descriptions ('handled sales').",
+  "💡 Tailoring your resume's keywords to match the job description significantly improves ATS pass-through rates.",
+  "💡 A resume typically shouldn't exceed 1–2 pages unless you have 10+ years of relevant experience.",
+  "💡 Listing certifications by their full official name (not abbreviations) helps both ATS systems and recruiters recognize them instantly.",
+  "💡 Soon: upload your resume + a job description here to get a match score and improvement suggestions.",
+  "💡 Soon: practice mock interview questions generated specifically from your resume and a target job description."
+];
+
+const tipBox = document.getElementById('tipBox');
+let tipIndex = 0;
+tipBox.textContent = TIPS[0];
+setInterval(()=>{
+  tipIndex = (tipIndex + 1) % TIPS.length;
+  tipBox.textContent = TIPS[tipIndex];
+}, 3500);
+
+let dots = 0;
+setInterval(()=>{
+  dots = (dots+1) % 4;
+  document.getElementById('loading').textContent = "Generating your resume" + ".".repeat(dots);
+}, 500);
+
 const resumeData = JSON.parse(localStorage.getItem("resumeData") || "null");
 const paymentInfo = JSON.parse(localStorage.getItem("paymentInfo") || "null");
 
-// No valid payment proof present — do not allow generation
 if (!resumeData || !paymentInfo || !paymentInfo.razorpay_payment_id || !paymentInfo.razorpay_signature) {
   document.getElementById("statusMsg").textContent = "No valid payment found. Redirecting…";
   setTimeout(() => window.location.href = "index.html", 1500);
 } else {
-  let dots = 0;
-  const dotTimer = setInterval(()=>{
-    dots = (dots+1) % 4;
-    document.getElementById("loading").textContent = "Generating AI Resume" + ".".repeat(dots);
-  }, 500);
-
   const API_BASE = "https://resume-ai-api-tg2p.onrender.com";
-
   fetch(`${API_BASE}/generate`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -40,24 +59,20 @@ if (!resumeData || !paymentInfo || !paymentInfo.razorpay_payment_id || !paymentI
   })
     .then(res => res.json())
     .then(result => {
-      clearInterval(dotTimer);
       if (!result.success || !result.html) throw new Error(result.error || "generation_failed");
       localStorage.setItem("resumeOutput", result.html);
       localStorage.setItem("lastPaidType", JSON.stringify(paymentInfo.type));
-      localStorage.removeItem("paymentInfo"); // one-time use, generation already consumed it
+      localStorage.removeItem("paymentInfo");
       window.location.href = "download.html";
     })
     .catch(err => {
-      clearInterval(dotTimer);
       if (String(err.message).includes("payment_invalid")) {
         document.getElementById("statusMsg").textContent = "Payment could not be verified. Please contact support.";
       } else {
-        // AI generation failed for a verified, paid user — fall back to local template so they still get their resume
         window.location.href = "fallback.html";
       }
     });
 }
 </script>
-
 </body>
 </html>

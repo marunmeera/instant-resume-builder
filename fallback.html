@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
 <body>
-
 <script src="resume-template.js"></script>
-
 <script>
 const data = JSON.parse(localStorage.getItem("resumeData") || "null");
 const paymentInfo = JSON.parse(localStorage.getItem("paymentInfo") || "null");
-
 if (!data) {
   window.location.href = "index.html";
 } else {
-  const html = generateResumeHTML(data);
+  const tier = (paymentInfo && paymentInfo.type) ? paymentInfo.type : "basic";
+  const html = generateResumeHTML(data, tier);
   localStorage.setItem("resumeOutput", html);
-  if (paymentInfo && paymentInfo.type) {
-    localStorage.setItem("lastPaidType", JSON.stringify(paymentInfo.type));
-  }
+  localStorage.setItem("lastPaidType", JSON.stringify(tier));
   localStorage.removeItem("paymentInfo");
   window.location.href = "download.html";
 }
 </script>
-
 </body>
 </html>
