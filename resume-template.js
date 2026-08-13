@@ -51,5 +51,12 @@ td { padding:6px 8px; border:1px solid #e0e0e0; vertical-align:top; }
   ${skillsList.length ? `<div class="section"><h2>Skills</h2><div class="skills">${skillsList.map(s=>`<span>${esc(s)}</span>`).join("")}</div></div>` : ""}
 
   ${data.projects ? `<div class="section"><h2>Projects</h2><p>${esc(data.projects)}</p></div>` : ""}
+
+  <div class="section" style="margin-top:24px;">
+    <h2>Declaration</h2>
+    <p style="font-size:12.5px;color:#333;">I hereby declare that the information provided above is true to the best of my knowledge and belief.</p>
+    <p style="font-size:12.5px;margin-top:8px;">Place: ${esc(data.location || "")}<br>Date: ${new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</p>
+    <p style="margin-top:16px;font-size:13px;font-weight:600;">${esc(data.name)}</p>
+  </div>
 </body></html>`;
 }

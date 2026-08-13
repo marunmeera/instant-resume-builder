@@ -40,12 +40,22 @@ if (paidType === "moderate" || paidType === "experienced") {
 actions.innerHTML = buttonsHtml;
 
 function downloadPDF(){
+  const el = document.getElementById("resumePreview");
+  // Temporarily remove the on-screen scroll clipping so the full resume gets captured, not just the visible portion
+  const prevMaxHeight = el.style.maxHeight;
+  const prevOverflow = el.style.overflow;
+  el.style.maxHeight = "none";
+  el.style.overflow = "visible";
+
   html2pdf().set({
     margin: 10, filename: "resume.pdf",
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true },
     jsPDF: { unit: "pt", format: "a4", orientation: "portrait" }
-  }).from(document.getElementById("resumePreview")).save();
+  }).from(el).save().then(()=>{
+    el.style.maxHeight = prevMaxHeight;
+    el.style.overflow = prevOverflow;
+  });
 }
 
 function downloadWord(){
