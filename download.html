@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your Resume — Instant Resume Builder</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
@@ -41,27 +42,50 @@ actions.innerHTML = buttonsHtml;
 
 function downloadPDF(){
   const el = document.getElementById("resumePreview");
-  // Temporarily remove the on-screen scroll clipping so the full resume gets captured, not just the visible portion
   const prevMaxHeight = el.style.maxHeight;
   const prevOverflow = el.style.overflow;
   el.style.maxHeight = "none";
   el.style.overflow = "visible";
+  el.scrollTop = 0;
+  window.scrollTo(0, 0);
 
-  html2pdf().set({
-    margin: 10, filename: "resume.pdf",
-    image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: "pt", format: "a4", orientation: "portrait" }
-  }).from(el).save().then(()=>{
-    el.style.maxHeight = prevMaxHeight;
-    el.style.overflow = prevOverflow;
+  // Wait for every image inside (photo, if any) to actually finish decoding —
+  // capturing before an image loads is what was causing blank/cut-off PDFs.
+  const images = [...el.querySelectorAll("img")];
+  const imgReady = images.map(img => img.complete ? Promise.resolve() : new Promise(res => {
+    img.onload = res; img.onerror = res;
+  }));
+
+  Promise.all(imgReady).then(() => {
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        html2pdf().set({
+          margin: 10, filename: "resume.pdf",
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: {
+            scale: 2, useCORS: true, scrollX: 0, scrollY: 0,
+            windowWidth: document.documentElement.scrollWidth,
+            windowHeight: el.scrollHeight + 100
+          },
+          jsPDF: { unit: "pt", format: "a4", orientation: "portrait" },
+          pagebreak: { mode: ["css", "legacy"] }
+        }).from(el).save().then(()=>{
+          el.style.maxHeight = prevMaxHeight;
+          el.style.overflow = prevOverflow;
+        });
+      }, 150);
+    });
   });
 }
 
 function downloadWord(){
   const preHtml = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Resume</title></head><body>`;
   const postHtml = "</body></html>";
-  const html = preHtml + document.getElementById("resumePreview").innerHTML + postHtml;
+  // Word's HTML import doesn't reliably render base64-embedded images, so we
+  // strip the photo for this format specifically (it still shows fine in the PDF).
+  const clone = document.getElementById("resumePreview").cloneNode(true);
+  clone.querySelectorAll("img").forEach(img => img.remove());
+  const html = preHtml + clone.innerHTML + postHtml;
   const blob = new Blob(['\ufeff', html], { type: "application/msword" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");

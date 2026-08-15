@@ -6,6 +6,7 @@
 <title>Instant Resume Builder — AI Resume Builder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,10 +17,12 @@
     <span>AI Resume Builder</span>
   </div>
   <div class="theme-toggle-wrap">
-    <span class="theme-hint" id="themeHint">🎨 Click to change theme</span>
+    <span class="theme-label">Theme</span>
     <button id="themeToggle" class="theme-btn" title="Change theme" onclick="cycleTheme()">🎨</button>
   </div>
 </header>
+
+<div class="quote-strip" id="quoteStrip">✨ The best time to build your resume was yesterday. The next best time is right now — let's go.</div>
 
 <div class="page-layout">
 
@@ -192,7 +195,7 @@
   <h3>Compare 3 Resume Options</h3>
   <table class="mini-compare">
     <tr>
-      <th>Features / Cost</th>
+      <th class="corner"><div class="diag">Features / Cost</div></th>
       <th><div class="rot"><span>Basic ₹19</span></div></th>
       <th><div class="rot"><span>Moderate ₹34</span></div></th>
       <th><div class="rot"><span>Advanced ₹49</span></div></th>
@@ -237,18 +240,27 @@
 // ---- Theme cycling ----
 const THEMES = ['dossier', 'corporate', 'creative'];
 function cycleTheme(){
-  let current = localStorage.getItem('irb-theme') || 'dossier';
+  let current = localStorage.getItem('irb-theme') || 'corporate';
   let next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
   document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('irb-theme', next);
 }
-document.documentElement.setAttribute('data-theme', localStorage.getItem('irb-theme') || 'dossier');
-// Show a one-time hint tooltip so people notice the theme button exists
-if(!localStorage.getItem('irb-theme-hint-seen')){
-  setTimeout(()=>{ document.getElementById('themeHint').classList.add('show'); }, 800);
-  setTimeout(()=>{ document.getElementById('themeHint').classList.remove('show'); }, 5000);
-  localStorage.setItem('irb-theme-hint-seen', '1');
-}
+document.documentElement.setAttribute('data-theme', localStorage.getItem('irb-theme') || 'corporate');
+
+// ---- Motivational quote strip ----
+const QUOTES = [
+  "✨ The best time to build your resume was yesterday. The next best time is right now — let's go.",
+  "✨ Every application you don't send is a rejection you gave yourself. Build it now.",
+  "✨ Your next opportunity is waiting on a resume you haven't written yet.",
+  "✨ Done is better than perfect — start your resume in the next 2 minutes."
+];
+let quoteIndex = 0;
+setInterval(()=>{
+  quoteIndex = (quoteIndex+1) % QUOTES.length;
+  const el = document.getElementById('quoteStrip');
+  el.style.opacity = 0;
+  setTimeout(()=>{ el.textContent = QUOTES[quoteIndex]; el.style.opacity = 1; }, 300);
+}, 8000);
 
 // ---- Rotating tips (every 10s, resume/CV/interview only, with manual nav) ----
 const TIPS = [

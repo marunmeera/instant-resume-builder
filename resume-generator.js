@@ -9,10 +9,23 @@ function handlePhoto(e){
   if(!file) { photoDataUrl = null; return; }
   const reader = new FileReader();
   reader.onload = function(ev){
-    photoDataUrl = ev.target.result;
-    const preview = document.getElementById('photoPreview');
-    preview.src = photoDataUrl;
-    preview.style.display = 'block';
+    const img = new Image();
+    img.onload = function(){
+      // Resize/compress to keep files small and PDF generation fast — raw phone
+      // photos can be several MB, which slows generation and bloats downloads.
+      const MAX_DIM = 300;
+      let w = img.width, h = img.height;
+      if(w > h && w > MAX_DIM){ h = h * (MAX_DIM/w); w = MAX_DIM; }
+      else if(h > MAX_DIM){ w = w * (MAX_DIM/h); h = MAX_DIM; }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      photoDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+      const preview = document.getElementById('photoPreview');
+      preview.src = photoDataUrl;
+      preview.style.display = 'block';
+    };
+    img.src = ev.target.result;
   };
   reader.readAsDataURL(file);
 }

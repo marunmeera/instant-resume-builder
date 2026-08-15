@@ -29,13 +29,13 @@ header.top{background:var(--header-bg);color:var(--header-text);padding:20px 28p
 header.top .brand{display:flex;align-items:baseline;gap:10px;}
 header.top h1{font-size:20px;font-weight:600;color:var(--header-text);}
 header.top span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;}
-.theme-toggle-wrap{position:relative;display:flex;align-items:center;}
-.theme-hint{position:absolute;right:44px;top:50%;transform:translateY(-50%);background:var(--paper);color:var(--ink);padding:6px 12px;border-radius:6px;font-size:11.5px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .4s ease;box-shadow:0 4px 12px rgba(0,0,0,.2);}
-.theme-hint::after{content:"";position:absolute;right:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--paper);}
-.theme-hint.show{opacity:1;}
+.theme-toggle-wrap{display:flex;align-items:center;gap:8px;}
+.theme-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--header-text);opacity:.8;text-transform:uppercase;letter-spacing:1px;}
 .theme-btn{background:none;border:1px solid var(--header-text);color:var(--header-text);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:15px;animation:pulseGlow 2s ease-in-out infinite;}
 .theme-btn:hover{background:rgba(255,255,255,.15);}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(184,134,59,.5);}50%{box-shadow:0 0 0 6px rgba(184,134,59,0);}}
+
+.quote-strip{background:var(--accent);color:#fff;text-align:center;padding:10px 20px;font-size:12.5px;font-weight:500;transition:opacity .3s ease;}
 
 .shell{max-width:1000px;margin:0 auto;padding:26px 16px 70px;}
 
@@ -156,14 +156,18 @@ header.top span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(-
 .download-actions{text-align:center;margin-top:18px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 .download-actions .pay-btn{max-width:260px;}
 
-/* ---- Tip carousel nav ---- */
-.tip-nav{display:flex;align-items:center;gap:6px;}
-.tip-arrow{background:var(--paper-2);border:1px solid var(--line);width:26px;height:26px;flex-shrink:0;cursor:pointer;color:var(--accent);font-size:14px;border-radius:50%;}
+/* ---- Tip carousel nav (arrows vertically centered left/right of the card) ---- */
+.tip-nav{position:relative;}
+.tip-arrow{position:absolute;top:50%;transform:translateY(-50%);background:var(--paper);border:1px solid var(--line);width:26px;height:26px;cursor:pointer;color:var(--accent);font-size:14px;border-radius:50%;z-index:2;box-shadow:0 2px 6px rgba(0,0,0,.1);}
+.tip-arrow:first-child{left:-10px;}
+.tip-arrow:last-child{right:-10px;}
 .tip-arrow:hover{background:var(--accent);color:#fff;}
+.tip-card{padding-left:26px;padding-right:26px;}
 
 /* ---- Rotated comparison table headers ---- */
 .mini-compare th{height:70px;vertical-align:bottom;}
-.mini-compare th:first-child{vertical-align:middle;height:auto;font-size:9.5px;}
+.mini-compare th:first-child{vertical-align:middle;height:auto;padding:0;}
+.diag{transform:rotate(-35deg);font-size:9px;white-space:nowrap;font-weight:600;}
 .rot{display:flex;align-items:flex-end;justify-content:center;height:100%;}
 .rot span{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;font-size:10px;padding-bottom:4px;}
 
