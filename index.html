@@ -15,6 +15,7 @@
     <h1>Instant Resume Builder</h1>
     <span>AI Resume Builder</span>
   </div>
+  <button id="themeToggle" class="theme-btn" title="Change theme" onclick="cycleTheme()">🎨</button>
 </header>
 
 <div class="page-layout">
@@ -156,13 +157,21 @@
 
 <aside class="side-panel left-panel">
   <h3>Resume &amp; Career Tips</h3>
-  <div class="tip-card">💡 Recruiters scan a resume in 6–7 seconds first pass — put your strongest line at the very top.</div>
-  <div class="tip-card">💡 "Increased sales by 18%" beats "handled sales" every time — quantify wherever you can.</div>
-  <div class="tip-card">💡 Match your resume's keywords to the job description to improve ATS pass-through.</div>
+  <div class="tip-card" id="rotatingTip">💡 Recruiters scan a resume in 6–7 seconds first pass — put your strongest line at the very top.</div>
   <div class="video-embed">
     <iframe width="100%" height="160" src="https://www.youtube.com/embed/videoseries?list=UUtfdMvY4JxbFkTZSJhwLb9A" title="Lead Your Future — Career Tips" frameborder="0" allowfullscreen loading="lazy"></iframe>
   </div>
   <a class="channel-link" href="https://www.youtube.com/@LeadYourFuture" target="_blank" rel="noopener">▶ More on Lead Your Future →</a>
+
+  <h3 style="margin-top:20px;">Share This</h3>
+  <div class="share-row">
+    <a class="share-icon wa" href="https://wa.me/?text=Build%20an%20AI%20resume%20for%20just%20%E2%82%B919%20%E2%80%94%20Instant%20Resume%20Builder%3A%20https%3A%2F%2Fmarunmeera.github.io%2Finstant-resume-builder%2F" target="_blank" rel="noopener" title="Share on WhatsApp">WA</a>
+    <a class="share-icon fb" href="https://www.facebook.com/sharer/sharer.php?u=https://marunmeera.github.io/instant-resume-builder/" target="_blank" rel="noopener" title="Share on Facebook">FB</a>
+    <a class="share-icon xx" href="https://twitter.com/intent/tweet?url=https://marunmeera.github.io/instant-resume-builder/&text=Build%20an%20AI%20resume%20for%20%E2%82%B919" target="_blank" rel="noopener" title="Share on X">X</a>
+    <a class="share-icon li" href="https://www.linkedin.com/sharing/share-offsite/?url=https://marunmeera.github.io/instant-resume-builder/" target="_blank" rel="noopener" title="Share on LinkedIn">in</a>
+  </div>
+
+  <div class="visitor-badge" id="visitorBadge">Loading visitor info…</div>
 </aside>
 
 <aside class="side-panel right-panel">
@@ -193,5 +202,52 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="resume-generator.js"></script>
+<script>
+// ---- Theme cycling ----
+const THEMES = ['dossier', 'corporate', 'creative'];
+function cycleTheme(){
+  let current = localStorage.getItem('irb-theme') || 'dossier';
+  let next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('irb-theme', next);
+}
+document.documentElement.setAttribute('data-theme', localStorage.getItem('irb-theme') || 'dossier');
+
+// ---- Rotating tips (every 10s) ----
+const TIPS = [
+  "💡 Recruiters scan a resume in 6–7 seconds first pass — put your strongest line at the very top.",
+  "💡 \"Increased sales by 18%\" beats \"handled sales\" every time — quantify wherever you can.",
+  "💡 Match your resume's keywords to the job description to improve ATS pass-through.",
+  "💡 Keep it to 1–2 pages unless you have 10+ years of relevant experience.",
+  "💡 List certifications by their full official name — helps both ATS systems and recruiters."
+];
+let tipIndex = 0;
+const tipEl = document.getElementById('rotatingTip');
+setInterval(()=>{
+  tipIndex = (tipIndex + 1) % TIPS.length;
+  tipEl.style.opacity = 0;
+  setTimeout(()=>{ tipEl.textContent = TIPS[tipIndex]; tipEl.style.opacity = 1; }, 300);
+}, 10000);
+
+// ---- Visitor counter + country flag (best-effort, fails silently if blocked) ----
+function countryCodeToFlag(code){
+  if(!code || code.length !== 2) return '🌐';
+  return String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt()));
+}
+(async function(){
+  const badge = document.getElementById('visitorBadge');
+  try{
+    const geoRes = await fetch('https://ipwho.is/');
+    const geo = await geoRes.json();
+    const flag = geo && geo.country_code ? countryCodeToFlag(geo.country_code) : '🌐';
+
+    const countRes = await fetch('https://api.countapi.xyz/hit/instantresumebuilder-irb/visits');
+    const count = await countRes.json();
+    badge.textContent = `${flag} Visitor #${count.value ? count.value.toLocaleString() : '—'}`;
+  }catch(e){
+    badge.style.display = 'none'; // hide quietly if either free API is unreachable
+  }
+})();
+</script>
 </body>
 </html>
