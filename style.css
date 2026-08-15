@@ -21,12 +21,19 @@ header.top span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(-
 .shell{max-width:1000px;margin:0 auto;padding:26px 16px 70px;}
 
 /* ---- 3-COLUMN LAYOUT (desktop) ---- */
-.page-layout{display:grid;grid-template-columns:230px minmax(0,1000px) 250px;gap:18px;max-width:1500px;margin:0 auto;padding:26px 16px 70px;align-items:start;}
-.page-layout .shell{padding:0;max-width:none;}
+.page-layout{
+  display:grid;
+  grid-template-columns:230px minmax(0,1000px) 250px;
+  grid-template-areas: "left main right";
+  gap:18px;max-width:1500px;margin:0 auto;padding:26px 16px 70px;align-items:start;
+}
+.page-layout .shell{grid-area:main;padding:0;max-width:none;}
+.left-panel{grid-area:left;}
+.right-panel{grid-area:right;}
 .side-panel{background:var(--paper);border:1px solid var(--line);padding:18px;position:sticky;top:20px;}
 .side-panel h3{font-size:14px;margin-bottom:12px;color:var(--accent);}
 .tip-card{background:var(--paper-2);border-left:3px solid var(--gold);padding:10px 12px;font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5;}
-.video-embed{margin-top:14px;border:1px solid var(--line);overflow:hidden;}
+.video-embed{margin-top:14px;border:1px solid var(--line);overflow:hidden;line-height:0;}
 .channel-link{display:block;text-align:center;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;}
 .channel-link:hover{text-decoration:underline;}
 
@@ -44,12 +51,14 @@ header.top span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(-
 .sample-block.short{width:60%;}
 .sample-note{font-size:10.5px;color:var(--muted);text-align:center;margin-top:8px;font-style:italic;}
 
+/* Mobile: form first, tips second, comparison last — matches actual HTML source order now */
 @media(max-width:1150px){
-  .page-layout{grid-template-columns:1fr;max-width:700px;}
-  .side-panel{position:static;margin-bottom:16px;}
-  .left-panel{order:2;}
-  .shell{order:1;}
-  .right-panel{order:3;}
+  .page-layout{
+    grid-template-columns:1fr;
+    grid-template-areas: "main" "left" "right";
+    max-width:700px;
+  }
+  .side-panel{position:static;margin-top:20px;}
 }
 .tabs{display:flex;gap:2px;}
 .tab{flex:1;text-align:center;padding:12px 4px;background:#E7E0CE;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;cursor:pointer;border:1px solid var(--line);border-bottom:none;position:relative;top:2px;}
